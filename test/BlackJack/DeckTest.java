@@ -1,0 +1,69 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package BlackJack;
+
+import java.util.ArrayList;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ *
+ * @author Jordan
+ */
+public class DeckTest {
+    
+    public DeckTest() {
+    }
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+    
+    @Before
+    public void setUp() {
+    }
+    
+    @After
+    public void tearDown() {
+    }
+
+    /**
+     * Test of toString method, of class Deck.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        Deck instance = new Deck();
+        String expResult = "";
+        String result = instance.toString();
+        System.out.append(result);
+        assertNotSame(expResult, result);
+    }
+
+    /**
+     * Test of shuffle method, of class Deck.
+     */
+    @Test
+    public void testShuffle() {
+        System.out.println("shuffle");
+        Deck instance = new Deck();
+        Deck old = new Deck(instance);
+        instance.shuffle();
+        assertNotSame(instance.getDeck().get(0), old.getDeck().get(0));
+        assertNotSame(instance.getDeck().get(6), old.getDeck().get(6));
+        assertNotSame(instance.getDeck().get(51), old.getDeck().get(51));
+        assertNotSame(instance.getDeck().get(22), old.getDeck().get(22));
+        assertNotSame(instance.getDeck().get(46), old.getDeck().get(46));
+        
+    }
+}
