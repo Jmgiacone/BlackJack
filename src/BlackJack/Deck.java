@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class Deck 
 {
-    private ArrayList<Card> cards, shuffling,listD;
+    private ArrayList<Card> cards, shuffling, deckList;
     private Random r;
     
     /**
@@ -21,12 +21,12 @@ public class Deck
     public Deck(Deck d)
     {
         cards = new ArrayList<>(52);
-        listD = d.getDeck();
+        deckList = d.getDeck();
         shuffling = new ArrayList<>();
         r = new Random();
-        for(int i = 0; i < listD.size(); i++)
+        for(int i = 0; i < deckList.size(); i++)
         {
-            cards.add(listD.get(i));
+            cards.add(deckList.get(i));
         }
     }
     
@@ -65,57 +65,57 @@ public class Deck
             else if(i == 3)
             {
                 rk = "Three";
-                v= 3;
+                v = 3;
             }
             else if(i == 4)
             {
                 rk = "Four";
-                v= 4;
+                v = 4;
             }
             else if(i == 5)
             {
                 rk = "Five";
-                v= 5;
+                v = 5;
             }
             else if(i == 6)
             {
                 rk = "Six";
-                v= 6;
+                v = 6;
             }
             else if(i == 7)
             {
                 rk = "Seven";
-                v= 7;
+                v = 7;
             }
             else if(i == 8)
             {
                 rk = "Eight";
-                v= 8;
+                v = 8;
             }
             else if(i == 9)
             {
                 rk = "Nine";
-                v= 9;
+                v = 9;
             }
             else if(i == 10)
             {
                 rk = "Ten";
-                v= 10;
+                v = 10;
             }
             else if(i == 11)
             {
                 rk = "Jack";
-                v= 10;
+                v = 10;
             }
             else if(i == 12)
             {
                 rk = "Queen";
-                v= 10;
+                v = 10;
             }
             else if(i == 13)
             {
                 rk = "King";
-                v= 10;
+                v = 10;
             }
         
             for(int j = 1; j <= 4; j++)
@@ -139,7 +139,7 @@ public class Deck
                     s = "Diamonds";
                 }
                 
-                cards.add(new Card(rk,s,v, true));
+                cards.add(new Card(rk, s, v, true));
             }
         }
     }
@@ -159,6 +159,7 @@ public class Deck
      */
     public void shuffle()
     {
+        //Will probably write a better shuffle algorithm later
         int num;
         for(int i = cards.size(); i > 0; i--)
         {
