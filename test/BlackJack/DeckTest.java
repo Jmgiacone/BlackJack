@@ -66,4 +66,18 @@ public class DeckTest {
         assertNotSame(instance.getDeck().get(46), old.getDeck().get(46));
         
     }
+
+    /**
+     * Test of getDeck method, of class Deck.
+     */
+    @Test
+    public void testGetDeck() {
+        System.out.println("getDeck");
+        Deck instance = new Deck();
+        ArrayList expResult = null;
+        ArrayList result = instance.getDeck();
+        assertEquals(52, result.size());
+        assertEquals(result.get(50).toString(), 
+                new Deck().getDeck().get(50).toString());
+    }
 }

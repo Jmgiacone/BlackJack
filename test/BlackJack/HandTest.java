@@ -47,8 +47,6 @@ public class HandTest {
         ArrayList expResult = null;
         ArrayList result = instance.getHand();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,11 +55,13 @@ public class HandTest {
     @Test
     public void testAddCard() {
         System.out.println("addCard");
-        Card c = null;
+        Card c = new Card("King", "Spades", 10, true);
         Hand instance = new Hand();
         instance.addCard(c);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        assertEquals(instance.getHand().get(0), c);
+        instance.addCard(new Card());
+        assertTrue(instance.getHand().size() == 2);
     }
 
     /**
@@ -73,8 +73,23 @@ public class HandTest {
         Hand instance = new Hand();
         int expResult = 0;
         int result = instance.getValue();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.addCard(new Card("King", "Hearts", 10, true));
+        instance.addCard((new Card("Ace", "Clubs", 11, true)));
+        assertEquals(21, instance.getValue());
+    }
+
+    /**
+     * Test of isBust method, of class Hand.
+     */
+    @Test
+    public void testIsBust() {
+        System.out.println("isBust");
+        Hand instance = new Hand();
+        boolean expResult = false;
+        boolean result = instance.isBust();
+        
+        instance.addCard(new Card("King", "Hearts", 10, true));
+        instance.addCard((new Card("Ace", "Clubs", 11, true)));
+        assertEquals(false, instance.isBust());
     }
 }
