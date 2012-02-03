@@ -94,7 +94,7 @@ public class Card
     @Override
     public String toString()
     {
-        return rank+" of "+suit+"("+value+")";
+        return "\n" +rank+" of "+suit+"("+value+")";
     }
     /**
      * Returns true if it's an ace

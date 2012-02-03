@@ -44,7 +44,7 @@ public class DeckTest {
     public void testToString() {
         System.out.println("toString");
         Deck instance = new Deck();
-        String expResult = "";
+        String expResult = "Incorrect toString";
         String result = instance.toString();
         System.out.append(result);
         assertNotSame(expResult, result);
@@ -64,7 +64,6 @@ public class DeckTest {
         assertNotSame(instance.getDeck().get(51), old.getDeck().get(51));
         assertNotSame(instance.getDeck().get(22), old.getDeck().get(22));
         assertNotSame(instance.getDeck().get(46), old.getDeck().get(46));
-        
     }
 
     /**

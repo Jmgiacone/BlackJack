@@ -12,10 +12,15 @@ import java.util.ArrayList;
  */
 public class Player 
 {
+    //PROTECTED FTW
     protected String name;
     protected double bet;
     protected Hand hand;
     
+    /**
+     * Default Constructor. Takes in a String for the name
+     * @param n The name of the player
+     */
     public Player(String n)
     {
         name = n;
@@ -23,6 +28,10 @@ public class Player
         hand = new Hand();
     }
     
+    /**
+     * A clone constructor that copies the instance variables
+     * @param p The player to be cloned
+     */
     public Player(Player p)
     {
         name = p.name;
@@ -30,33 +39,41 @@ public class Player
         hand = p.hand;
     }
     
-    public void setName(String n)
-    {
-        name = n;
-    }
-    
+    /**
+     * Returns the name of the Player
+     * @return The name of the Player
+     */
     public String getName()
     {
         return name;
     }
     
+    /**
+     * Gets the value of the hand
+     * @return The value of the hand
+     */
     public int getHandValue()
     {
         return hand.getValue();
     }
     
+    /**
+     * Tells if the player has a busted hand
+     * @return If the player is bust
+     */
     public boolean isBust()
     {
         return hand.isBust();
     }
     
-    public void hit(ArrayList<Card> d)
+    /**
+     * Adds a card to the hand 
+     * @param c The card to be added
+     */
+    public void hit(Card c)
     {
-        Card c = d.get(d.size() - 1);
-        //Object pass by reference OP
-        d.remove(c);
-        
         hand.addCard(c);
+        hand.getValue();
     }
     
 }

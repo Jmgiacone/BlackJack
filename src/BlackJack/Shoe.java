@@ -2,6 +2,7 @@ package BlackJack;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -77,35 +78,67 @@ public class Shoe
     }
     
     /**
-     * Shuffles the shoe
+     * Shuffles the Shoe using a realistic shuffling algorithm
      */
-    public void Shuffle()
+    public void shuffle()
     {
-        //Split the deck, then take 1 or 2 cards from each half, then repeat 
-        //with rand num 1-3 each pass
+         List<Card> h1 = shoe.subList(0, shoe.size() / 2),
+                 //split the shoe into 2 halves
+                 h2 = shoe.subList(shoe.size() / 2, 
+                 shoe.size()), temp = new ArrayList<>(),
+                 garb1 = new ArrayList<>(),
+                 garb2 = new ArrayList<>();
+         
+         int num = 0, index = 0;
+         
+         for(int count = 0; count < h1.size();)
+         {
+             if(count > h1.size() - 4)
+             {
+                 num = h1.size() - count;
+             }
+             else
+             {
+                 //Generates an arbitrary number of cards to take off
+                 //the two halves
+                num = r.nextInt(3) + 1;
+             }
+             
+             index += num - 1;
+             for(int j = num; j > 0; j--)
+             {
+                 temp.add(h1.get(index));
+                 temp.add(h2.get(index));
+                 
+                 if(j == 1)
+                 {
+                     //Do nothing
+                 }
+                 else
+                 {
+                    index--;
+                 }
+                 count++;
+             }
+             index = count;
+         }
+         shoe = (ArrayList<Card>)temp;
+         
+    }
+    
+    /**
+     * A basic toString
+     * @return Every card in the shoe
+     */
+    public String toString()
+    {
+        String str = "";
         
-        List<Card> h1, h2 = new ArrayList<>();
-        
-        h1 = shoe.subList(0, shoe.size() / 2);
-        h2 = shoe.subList(shoe.size() / 2, shoe.size() - 1);
-        
-        int numCards = 0;
-        for(int i = 0; true; i++)
+        for(int i = 0; i < shoe.size(); i++)
         {
-            numCards = r.nextInt(3) + 1;
-            
-            h1.
+            str += shoe.get(i);
         }
-//        int num;
-//        for(int i = shoe.size(); i > 0; i--)
-//        {
-//            num = r.nextInt(i);
-//            shuffling.add(cards.get(num));
-//            cards.remove(num);
-//        }
-//        
-//        nullify(cards);
-//        Collections.copy(cards, shuffling);
-//        shuffling.clear();
+        
+        return str;
     }
 }

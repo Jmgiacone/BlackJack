@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class Deck 
 {
-    private ArrayList<Card> cards, shuffling, deckList;
+    private ArrayList<Card> deck, shuffling, deckList;
     private Random r;
     
     /**
@@ -20,13 +20,14 @@ public class Deck
      */
     public Deck(Deck d)
     {
-        cards = new ArrayList<>(52);
+        deck = new ArrayList<>(52);
         deckList = d.getDeck();
         shuffling = new ArrayList<>();
         r = new Random();
+        
         for(int i = 0; i < deckList.size(); i++)
         {
-            cards.add(deckList.get(i));
+            deck.add(deckList.get(i));
         }
     }
     
@@ -36,17 +37,17 @@ public class Deck
      */
     public Deck()
     {
-        cards = new ArrayList<>(52);
+        deck = new ArrayList<>(52);
         shuffling = new ArrayList<>();
         r = new Random();
         //Parameterized with 52 for readability sake
-        setCards();
+        setdeck();
     }
     
     /**
      * A helper method containing the algorithm for initializing the cards
      */
-    private void setCards()
+    private void setdeck()
     {
         String rk = "";
         int v = 0;
@@ -139,18 +140,27 @@ public class Deck
                     s = "Diamonds";
                 }
                 
-                cards.add(new Card(rk, s, v, true));
+                deck.add(new Card(rk, s, v, true));
             }
         }
     }
     
+    public Card getCard(int index)
+    {
+        return deck.get(index);
+    }
+    
+    public Card getCard()
+    {
+        return deck.get(0);
+    }
     /**
      * This method returns a reference to the ArrayList of cards in Deck
      * @return The ArrayList<Card> deck
      */
     public ArrayList<Card> getDeck()
     {
-        return cards;
+        return deck;
     }
     
     /**
@@ -161,15 +171,15 @@ public class Deck
     {
         //Will probably write a better shuffle algorithm later
         int num;
-        for(int i = cards.size(); i > 0; i--)
+        for(int i = deck.size(); i > 0; i--)
         {
             num = r.nextInt(i);
-            shuffling.add(cards.get(num));
-            cards.remove(num);
+            shuffling.add(deck.get(num));
+            deck.remove(num);
         }
         
-        nullify(cards);
-        Collections.copy(cards, shuffling);
+        nullify(deck);
+        Collections.copy(deck, shuffling);
         shuffling.clear();
     }
     
@@ -201,9 +211,9 @@ public class Deck
     public String toString()
     {
         String s = "";
-        for(int i = 0; i < cards.size(); i++)
+        for(int i = 0; i < deck.size(); i++)
         {
-            s += cards.get(i).toString() + "\n";
+            s += deck.get(i).toString();
         }
         
         return s;

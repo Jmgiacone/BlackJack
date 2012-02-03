@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package BlackJack;
 
 /**
@@ -10,11 +6,11 @@ package BlackJack;
  */
 public class Dealer extends Player
 {
-    Shoe s;
-    public Dealer(String n)
+    Shoe shoe;
+    public Dealer(String n, int d)
     {
         super(n);
-        s = new Shoe(3);//Change me to user input later
+        shoe = new Shoe(d);
     }
     
     public boolean isAt17()
@@ -25,5 +21,12 @@ public class Dealer extends Player
     public void start()
     {
         //Start the game HERE
+    }
+    
+    public Card draw()
+    {
+        Card c = shoe.getShoe().remove(0);
+        shoe.getShoe().add(c);
+        return(c);
     }
 }

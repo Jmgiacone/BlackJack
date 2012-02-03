@@ -46,7 +46,7 @@ public class HandTest {
         Hand instance = new Hand();
         ArrayList expResult = null;
         ArrayList result = instance.getHand();
-        assertEquals(expResult, result);
+        //assertEquals(expResult, result);
     }
 
     /**
@@ -73,9 +73,14 @@ public class HandTest {
         Hand instance = new Hand();
         int expResult = 0;
         int result = instance.getValue();
+        
         instance.addCard(new Card("King", "Hearts", 10, true));
-        instance.addCard((new Card("Ace", "Clubs", 11, true)));
-        assertEquals(21, instance.getValue());
+        for(int i = 0; i < 5; i++)
+        {
+            instance.addCard(new Card("Ace", "Hearts", 11, true));
+        }
+        
+        assertEquals(15, instance.getValue());
     }
 
     /**
@@ -90,6 +95,110 @@ public class HandTest {
         
         instance.addCard(new Card("King", "Hearts", 10, true));
         instance.addCard((new Card("Ace", "Clubs", 11, true)));
-        assertEquals(false, instance.isBust());
+        assertFalse(instance.isBust());
+        for(int i = 0; i < 5; i++)
+        {
+            instance.addCard(new Card("Ace", "Hearts", 11, true));
+        }
+        assertFalse(instance.isBust());
+        instance.addCard(new Card("King", "jkl", 10, true));
+        assertTrue(instance.isBust());
+    }
+
+    /**
+     * Test of numCards method, of class Hand.
+     */
+    @Test
+    public void testNumCards() {
+        System.out.println("numCards");
+        Hand instance = new Hand();
+        for(int i = 0; i < 5; i++)
+        {
+            instance.addCard(new Card());
+        }
+        
+        assertEquals(5, instance.numCards());
+    }
+
+    /**
+     * Test of numAces method, of class Hand.
+     */
+    @Test
+    public void testNumAces() {
+        System.out.println("numAces");
+        Hand instance = new Hand();
+        instance.addCard(new Card("Ace", "Spadse", 11, true));
+        instance.addCard(new Card("Ace", "Spadse", 11, true));
+        instance.addCard(new Card("Ace", "Spadse", 11, true));
+        assertEquals(3, instance.numAces());
+    }
+
+    /**
+     * Test of is21 method, of class Hand.
+     */
+    @Test
+    public void testIs21() {
+        System.out.println("is21");
+        Hand instance = new Hand();
+        
+        instance.addCard(new Card("King", "Hearts", 10, true));
+        instance.addCard((new Card("Ace", "Clubs", 11, true)));
+        
+        assertTrue(instance.is21());
+        
+        for(int i = 0; i < 5; i++)
+        {
+            instance.addCard(new Card());
+        }
+        
+        instance.addCard((new Card("five", "jkl", 5, true)));
+        
+        assertTrue(instance.is21());
+    }
+
+    /**
+     * Test of isBlackJack method, of class Hand.
+     */
+    @Test
+    public void testIsBlackJack() {
+        System.out.println("isBlackJack");
+        Hand instance = new Hand();
+        
+        assertFalse(instance.isBlackJack());
+        instance.addCard(new Card("King", "Hearts", 10, true));
+        instance.addCard((new Card("Ace", "Clubs", 11, true)));
+        assertTrue(instance.isBlackJack());
+    }
+
+    /**
+     * Test of containsAce method, of class Hand.
+     */
+    @Test
+    public void testContainsAce() {
+        System.out.println("containsAce");
+        Hand instance = new Hand();
+        instance.addCard(new Card());
+        assertFalse(instance.containsAce());
+        instance.addCard(new Card("Ace", "Spadse", 11, true));
+        assertTrue(instance.containsAce());
+    }
+
+    /**
+     * Test of isFiveCardCharlie method, of class Hand.
+     */
+    @Test
+    public void testIsFiveCardCharlie() {
+        System.out.println("isFiveCardCharlie");
+        Hand instance = new Hand();
+        instance.addCard(new Card("Five", "kjl", 5, true));
+        
+        assertFalse(instance.isFiveCardCharlie());
+        
+        for(int i = 0; i < 5; i++)
+        {
+            instance.addCard(new Card("two", "jkl", 2, true));
+        }
+        boolean result = instance.isFiveCardCharlie();
+        assertTrue(result);
     }
 }
