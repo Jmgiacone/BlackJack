@@ -228,10 +228,10 @@ public class DealerTest {
     @Test
     public void testIsBelowHard17() {
         System.out.println("isBelowHard17");
-        Dealer instance = null;
-        boolean expResult = false;
-        boolean result = instance.isBelowHard17();
-        assertEquals(expResult, result);
+        Dealer dealer = new Dealer("", 5,new Player("", 111));
+        
+        dealer.hit(new Card("ACe", "Spades", 11));
+        dealer.hit(new Card("ACe", "Spades", 11));
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
