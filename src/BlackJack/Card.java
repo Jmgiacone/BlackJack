@@ -1,5 +1,14 @@
 package BlackJack;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
+import java.awt.image.Raster;
+import java.awt.image.SampleModel;
+import javax.swing.ImageIcon;
+
 /**
  * This is the basis of the entire game, the card class. The most 
  * fundamental unit of play in the entire game. Enjoy :)
@@ -8,9 +17,10 @@ package BlackJack;
  */
 public class Card 
 {
-    private String rank, suit; 
+    private String rank, suit, faceLocation, backLocation, tableLocation;
     private int value;
-    private boolean visible;
+    private boolean visible, isTable;
+    private ImageIcon face, backing, table;
     
     /**
      * Constructs a card with given rank, suit, and value
@@ -18,13 +28,22 @@ public class Card
      * @param newSuit The suit of the card (Spade, Hearts, Diamonds)
      * @param newValue The value of the card(1,11,10)
      */
-    public Card(String newRank, String newSuit, int newValue, boolean v)
+    public Card(String newRank, String newSuit, int newValue)
     {
         rank = newRank;
         suit = newSuit;
         value = newValue;
-        visible = v;
+        visible = true;
+        isTable = false;
+        faceLocation = "images/150x215/"+rank+suit+".png";
+        backLocation = "images/150x215/back-blue-150-3.png";
+        tableLocation = "images/150x215/tableColor.png";
+        backing = new ImageIcon(backLocation);
+        table = new ImageIcon(tableLocation);
+        face = new ImageIcon(faceLocation);
+        
     }
+    //RASTER
     /**
      * This is the default constructor that constructs default values for a 
      * card, A joker of Narwhals with a value of -1
@@ -94,7 +113,7 @@ public class Card
     @Override
     public String toString()
     {
-        return "\n" +rank+" of "+suit+"("+value+")";
+        return rank+" of "+suit+"("+value+")" + "\n";
     }
     /**
      * Returns true if it's an ace
@@ -121,5 +140,26 @@ public class Card
     public void setVisibility(boolean v)
     {
         visible = v;
+    }
+    
+    public ImageIcon getImage()
+    {
+        if(isTable)
+        {
+            return table;
+        }
+        else if(visible)
+        {
+            return face;
+        }
+        else
+        {
+            return backing;
+        }
+    }
+    
+    public void setTable(boolean t)
+    {
+        isTable = t;
     }
 }

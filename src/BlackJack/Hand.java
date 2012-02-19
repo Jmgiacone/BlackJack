@@ -4,7 +4,13 @@
  */
 package BlackJack;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -21,9 +27,13 @@ public class Hand
     public Hand()
     {
         value = 0;
-        hand = new ArrayList<>();
+        hand = new ArrayList<>(5);
     }
     
+    public void clearHand()
+    {
+        hand.clear();
+    }
     /**
      * A clone constructor that clones a hand passed in
      * @param h The hand to be cloned 
@@ -96,6 +106,22 @@ public class Hand
         return hand.size();
     }
     
+    /**
+     * 
+     */
+    public void split()
+    {
+        if(hand.size() != 2 && 
+                hand.get(0).
+                getRank().
+                equalsIgnoreCase(hand.
+                get(1).
+                getRank()))
+        {
+            
+        }
+        //Put code here
+    }
     /**
      * Tells if the player is bust or not
      * @return True if the hand is over 21 with all aces being set to one
@@ -174,12 +200,38 @@ public class Hand
     }
     
     /**
-     * Tells whether or not the hand is a 5 card charlie (5 card hand that isn't
-     * busted)
+     * Tells whether or not the hand is a 5 card charlie (5 card hand that 
+     * isn't busted)
      * @return True if the hand has 5 Cards and isn't busted yet 
      */
     public boolean isFiveCardCharlie()
     {
         return !isBust() && numCards() >= 5;
+    }
+    
+    public JPanel updateCards()
+    {
+        GridBagConstraints c = new GridBagConstraints();
+        JPanel panel = new JPanel(new GridBagLayout());
+        
+        c.gridx = 0;
+        
+        for(int i = 0; i < hand.size(); i++)
+        {
+            panel.add(new JLabel(hand.get(i).getImage()), c);
+            c.gridx++;
+        }
+        
+        return panel;
+    }
+    public String toString()
+    {
+        String s = "";
+        
+        for(int i = 0; i < hand.size(); i++)
+        {
+            s += hand.get(i) + "\n";
+        }
+        return s;
     }
 }

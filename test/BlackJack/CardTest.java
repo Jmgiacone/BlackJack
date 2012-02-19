@@ -44,7 +44,7 @@ public class CardTest {
     public void testSetAce() {
         System.out.println("setAce");
         boolean toOne = false;
-        Card instance = new Card("Ace", "Spades", 11, false);
+        Card instance = new Card("Ace", "Spades", 11);
         instance.setAce(true);
          
         assertTrue(instance.getValue() == 1);
@@ -58,8 +58,8 @@ public class CardTest {
     @Test
     public void testGetRank() {
         System.out.println("getRank");
-        Card instance = new Card("Ace", "Spades", 11, false), 
-                b = new Card("Jack", "Spades", 10, false);
+        Card instance = new Card("Ace", "Spades", 11), 
+                b = new Card("Jack", "Spades", 10);
         assertEquals("Ace", instance.getRank());
         assertNotSame("King", b.getRank());
     }
@@ -70,8 +70,8 @@ public class CardTest {
     @Test
     public void testGetSuit() {
         System.out.println("getSuit");
-        Card instance = new Card("Two", "Spades", 2, false), 
-                b = new Card("Five", "Hearts", 5, false);
+        Card instance = new Card("Two", "Spades", 2), 
+                b = new Card("Five", "Hearts", 5);
         String expResult = "";
         String result = instance.getSuit();
         assertEquals("Spades", instance.getSuit());
@@ -84,7 +84,7 @@ public class CardTest {
     @Test
     public void testGetValue() {
         System.out.println("getValue");
-        Card instance = new Card("Ace", "Hearts", 11, false);
+        Card instance = new Card("Ace", "Hearts", 11);
         int expResult = 0;
         int result = instance.getValue();
         assertEquals(11, instance.getValue());
@@ -98,8 +98,8 @@ public class CardTest {
     @Test
     public void testIsAce() {
         System.out.println("isAce");
-        Card instance = new Card("Ace", "Spades", 11, false),
-                b = new Card("King" , "Hearts", 10, false);
+        Card instance = new Card("Ace", "Spades", 11),
+                b = new Card("King" , "Hearts", 10);
         boolean expResult = false;
         boolean result = instance.isAce();
         assertTrue(instance.isAce());
@@ -112,7 +112,7 @@ public class CardTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Card instance = new Card("Ace", "Spades", 11, false);
+        Card instance = new Card("Ace", "Spades", 11);
         assertTrue(instance.toString().equalsIgnoreCase("Ace of Spades(11)"));
     }
 

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package BlackJack;
 
 import java.util.ArrayList;
@@ -55,7 +51,7 @@ public class HandTest {
     @Test
     public void testAddCard() {
         System.out.println("addCard");
-        Card c = new Card("King", "Spades", 10, true);
+        Card c = new Card("King", "Spades", 10);
         Hand instance = new Hand();
         instance.addCard(c);
         
@@ -74,10 +70,10 @@ public class HandTest {
         int expResult = 0;
         int result = instance.getValue();
         
-        instance.addCard(new Card("King", "Hearts", 10, true));
+        instance.addCard(new Card("King", "Hearts", 10));
         for(int i = 0; i < 5; i++)
         {
-            instance.addCard(new Card("Ace", "Hearts", 11, true));
+            instance.addCard(new Card("Ace", "Hearts", 11));
         }
         
         assertEquals(15, instance.getValue());
@@ -93,15 +89,15 @@ public class HandTest {
         boolean expResult = false;
         boolean result = instance.isBust();
         
-        instance.addCard(new Card("King", "Hearts", 10, true));
-        instance.addCard((new Card("Ace", "Clubs", 11, true)));
+        instance.addCard(new Card("King", "Hearts", 10));
+        instance.addCard((new Card("Ace", "Clubs", 11)));
         assertFalse(instance.isBust());
         for(int i = 0; i < 5; i++)
         {
-            instance.addCard(new Card("Ace", "Hearts", 11, true));
+            instance.addCard(new Card("Ace", "Hearts", 11));
         }
         assertFalse(instance.isBust());
-        instance.addCard(new Card("King", "jkl", 10, true));
+        instance.addCard(new Card("King", "jkl", 10));
         assertTrue(instance.isBust());
     }
 
@@ -127,9 +123,9 @@ public class HandTest {
     public void testNumAces() {
         System.out.println("numAces");
         Hand instance = new Hand();
-        instance.addCard(new Card("Ace", "Spadse", 11, true));
-        instance.addCard(new Card("Ace", "Spadse", 11, true));
-        instance.addCard(new Card("Ace", "Spadse", 11, true));
+        instance.addCard(new Card("Ace", "Spadse", 11));
+        instance.addCard(new Card("Ace", "Spadse", 11));
+        instance.addCard(new Card("Ace", "Spadse", 11));
         assertEquals(3, instance.numAces());
     }
 
@@ -141,8 +137,8 @@ public class HandTest {
         System.out.println("is21");
         Hand instance = new Hand();
         
-        instance.addCard(new Card("King", "Hearts", 10, true));
-        instance.addCard((new Card("Ace", "Clubs", 11, true)));
+        instance.addCard(new Card("King", "Hearts", 10));
+        instance.addCard((new Card("Ace", "Clubs", 11)));
         
         assertTrue(instance.is21());
         
@@ -151,7 +147,7 @@ public class HandTest {
             instance.addCard(new Card());
         }
         
-        instance.addCard((new Card("five", "jkl", 5, true)));
+        instance.addCard((new Card("five", "jkl", 5)));
         
         assertTrue(instance.is21());
     }
@@ -165,8 +161,8 @@ public class HandTest {
         Hand instance = new Hand();
         
         assertFalse(instance.isBlackJack());
-        instance.addCard(new Card("King", "Hearts", 10, true));
-        instance.addCard((new Card("Ace", "Clubs", 11, true)));
+        instance.addCard(new Card("King", "Hearts", 10));
+        instance.addCard((new Card("Ace", "Clubs", 11)));
         assertTrue(instance.isBlackJack());
     }
 
@@ -179,7 +175,7 @@ public class HandTest {
         Hand instance = new Hand();
         instance.addCard(new Card());
         assertFalse(instance.containsAce());
-        instance.addCard(new Card("Ace", "Spadse", 11, true));
+        instance.addCard(new Card("Ace", "Spadse", 11));
         assertTrue(instance.containsAce());
     }
 
@@ -190,13 +186,13 @@ public class HandTest {
     public void testIsFiveCardCharlie() {
         System.out.println("isFiveCardCharlie");
         Hand instance = new Hand();
-        instance.addCard(new Card("Five", "kjl", 5, true));
+        instance.addCard(new Card("Five", "kjl", 5));
         
         assertFalse(instance.isFiveCardCharlie());
         
         for(int i = 0; i < 5; i++)
         {
-            instance.addCard(new Card("two", "jkl", 2, true));
+            instance.addCard(new Card("two", "jkl", 2));
         }
         boolean result = instance.isFiveCardCharlie();
         assertTrue(result);

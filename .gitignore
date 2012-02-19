@@ -1,0 +1,4 @@
+#ignore build files
+[Bb]uild
+#ignore class files
+*.class

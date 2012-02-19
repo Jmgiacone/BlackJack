@@ -2,6 +2,7 @@ package BlackJack;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Random;
  */
 public class Deck 
 {
-    private ArrayList<Card> deck, shuffling, deckList;
+    private ArrayList<Card> deck, deckList;
     private Random r;
     
     /**
@@ -22,7 +23,6 @@ public class Deck
     {
         deck = new ArrayList<>(52);
         deckList = d.getDeck();
-        shuffling = new ArrayList<>();
         r = new Random();
         
         for(int i = 0; i < deckList.size(); i++)
@@ -38,7 +38,6 @@ public class Deck
     public Deck()
     {
         deck = new ArrayList<>(52);
-        shuffling = new ArrayList<>();
         r = new Random();
         //Parameterized with 52 for readability sake
         setdeck();
@@ -140,7 +139,7 @@ public class Deck
                     s = "Diamonds";
                 }
                 
-                deck.add(new Card(rk, s, v, true));
+                deck.add(new Card(rk, s, v));
             }
         }
     }
@@ -169,18 +168,57 @@ public class Deck
      */
     public void shuffle()
     {
-        //Will probably write a better shuffle algorithm later
-        int num;
-        for(int i = deck.size(); i > 0; i--)
-        {
-            num = r.nextInt(i);
-            shuffling.add(deck.get(num));
-            deck.remove(num);
-        }
-        
-        nullify(deck);
-        Collections.copy(deck, shuffling);
-        shuffling.clear();
+        List<Card> h1 = deck.subList(0, deck.size() / 2),
+                 //split the deck into 2 halves
+                 h2 = deck.subList(deck.size() / 2, 
+                 deck.size()), temp = new ArrayList<>();
+         
+         int num = 0, index = 0;
+         
+         for(int count = 0; count < h1.size();)
+         {
+             if(count > h1.size() - 4)
+             {
+                 num = h1.size() - count;
+             }
+             else
+             {
+                 //Generates an arbitrary number of cards to take off
+                 //the two halves
+                num = r.nextInt(3) + 1;
+             }
+             
+             index += num - 1;
+             for(int j = num; j > 0; j--)
+             {
+                 temp.add(h1.get(index));
+                 temp.add(h2.get(index));
+                 
+                 if(j == 1)
+                 {
+                     //Do nothing
+                 }
+                 else
+                 {
+                    index--;
+                 }
+                 count++;
+             }
+             index = count;
+         }
+         deck = (ArrayList<Card>)temp;
+//        //Will probably write a better shuffle algorithm later
+//        int num;
+//        for(int i = deck.size(); i > 0; i--)
+//        {
+//            num = r.nextInt(i);
+//            shuffling.add(deck.get(num));
+//            deck.remove(num);
+//        }
+//        
+//        nullify(deck);
+//        Collections.copy(deck, shuffling);
+//        shuffling.clear();
     }
     
     /**

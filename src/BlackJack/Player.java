@@ -5,26 +5,30 @@
 package BlackJack;
 
 import java.util.ArrayList;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Jordan
  */
-public class Player 
+public class Player extends Person
 {
-    //PROTECTED FTW
-    protected String name;
-    protected double bet;
-    protected Hand hand;
+    //private FTW
+    
+    private double bet, money, insuranceBet;
+    private boolean insurance;
     
     /**
      * Default Constructor. Takes in a String for the name
      * @param n The name of the player
      */
-    public Player(String n)
+    public Player(String n, double m)
     {
-        name = n;
+        super(n);
         bet = 0.0;
+        insuranceBet = 0.0;
+        money = m;
+        insurance = false;
         hand = new Hand();
     }
     
@@ -34,46 +38,101 @@ public class Player
      */
     public Player(Player p)
     {
+        super(p.name);
+        money = p.money;
         name = p.name;
         bet = p.bet;
-        hand = p.hand;
+        insurance = p.insurance;
+    }
+    
+    public void lose()
+    {
+        bet = 0;
+    }
+    public ArrayList<Card> split1()
+    {
+        return (ArrayList)hand.getHand().subList(0, 0);
+    }
+    
+    public ArrayList<Card> split2()
+    {
+        return (ArrayList)hand.getHand().subList(1, 1);
+    }
+    public void winInsurance()
+    {
+        money += 2 *insuranceBet;
+        insurance = false;
+    }
+    public void insurance(double aBet)
+    {
+        //Insurance pays 2:1
+        insuranceBet = aBet;
+    }
+    public void doubleDown()
+    {
+        //If dealer has ace
+        money -= bet;
+        bet *= 2;
     }
     
     /**
-     * Returns the name of the Player
-     * @return The name of the Player
+     * Returns how much money the player has
+     * @return the amount of money that the player has left
      */
-    public String getName()
+    public double getMoney()
     {
-        return name;
+        return money;
+    }
+    
+    public boolean hasInsurance()
+    {
+        return insurance;
+    }
+    public void win()
+    {
+        if(insurance)
+        {
+            
+        }
+        else if(hand.isBlackJack())
+        {
+            money += bet * 2.5;
+        }
+        else
+        {
+            money += bet * 2;
+        }
+        bet = 0;
+        insurance = false;
     }
     
     /**
-     * Gets the value of the hand
-     * @return The value of the hand
+     * 
+     * @param b 
      */
-    public int getHandValue()
+    public void bet(double b)
     {
-        return hand.getValue();
+        bet = b;
+        money -= bet;
     }
     
-    /**
-     * Tells if the player has a busted hand
-     * @return If the player is bust
-     */
-    public boolean isBust()
+    public void push()
     {
-        return hand.isBust();
+        money += bet;
+        bet = 0;
+    }
+    public String toString()
+    {
+        return name+ "Money: " +money+ "Cards:\n" + hand;
     }
     
-    /**
-     * Adds a card to the hand 
-     * @param c The card to be added
-     */
-    public void hit(Card c)
+    public double getBet()
     {
-        hand.addCard(c);
-        hand.getValue();
+        return bet;
     }
     
+    public JPanel updateCards()
+    {
+        return hand.updateCards();
+    }
 }

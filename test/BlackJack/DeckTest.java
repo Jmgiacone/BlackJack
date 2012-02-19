@@ -79,4 +79,29 @@ public class DeckTest {
         assertEquals(result.get(50).toString(), 
                 new Deck().getDeck().get(50).toString());
     }
+
+    /**
+     * Test of getCard method, of class Deck.
+     */
+    @Test
+    public void testGetCard_int() {
+        System.out.println("getCard");
+        int index = 0;
+        Deck instance = new Deck();
+        Card expResult = null;
+        Card result = instance.getCard(index);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getCard method, of class Deck.
+     */
+    @Test
+    public void testGetCard_0args() {
+        System.out.println("getCard");
+        Deck instance = new Deck();
+        Card expResult = null;
+        Card result = instance.getCard();
+        assertEquals(expResult, result);;
+    }
 }

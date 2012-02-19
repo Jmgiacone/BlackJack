@@ -15,6 +15,7 @@ public class Shoe
 {
     private ArrayList<Card> shoe;
     private Random r;
+    private int decks;
     
     /**
      * Constructs a shoe with the number of decks in the shoe
@@ -25,12 +26,23 @@ public class Shoe
         shoe = new ArrayList<>();
         r = new Random();
         
-        for(int i = 0; i < numDecks; i++)
+        decks = numDecks;
+        initCards(decks);
+        
+        
+        for(int i = 0; i < 10; i++)
+        {
+            shuffle();
+        }
+    }
+    
+    public void initCards(int decks)
+    {
+        for(int i = 0; i < decks; i++)
         {
             addDeckCards(new Deck().getDeck());
         }
     }
-    
     /**
      * Constructs a Shoe with the default amount of decks (3)
      */
@@ -68,6 +80,12 @@ public class Shoe
         }
     }
     
+    public void reDoCards()
+    {
+        shoe.clear();
+        initCards(decks);
+        
+    }
     /**
      * A get method for the ArrayList<Card> called shoe
      * @return Shoe
@@ -85,9 +103,7 @@ public class Shoe
          List<Card> h1 = shoe.subList(0, shoe.size() / 2),
                  //split the shoe into 2 halves
                  h2 = shoe.subList(shoe.size() / 2, 
-                 shoe.size()), temp = new ArrayList<>(),
-                 garb1 = new ArrayList<>(),
-                 garb2 = new ArrayList<>();
+                 shoe.size()), temp = new ArrayList<>();
          
          int num = 0, index = 0;
          
