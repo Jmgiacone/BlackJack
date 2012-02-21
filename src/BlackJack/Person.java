@@ -14,15 +14,28 @@ import javax.swing.JPanel;
 public class Person 
 {
     protected String name;
-    protected Hand hand;
+    protected Hand hand, primaryHand;
+    private ArrayList<Hand> splits;
+    private int splitNum;
+    
     
     public Person(String n)
     {
+        splits = new ArrayList<>();
+        setSplits();
         name = n;
+        splitNum = 0;
         hand = new Hand();
+        primaryHand = hand;
     }
     
-    
+    private void setSplits()
+    {
+        for(int i = 0; i < 16; i++)
+        {
+            splits.add(new Hand());
+        }
+    }
     /**
      * Returns the name of the Player
      * @return The name of the Player
@@ -32,14 +45,43 @@ public class Person
         return name;
     }
     
+    public void split1()
+    {
+        primaryHand = splits.get(splitNum);
+        splitNum++;
+        Card c = hand.getHand().get(0);
+        
+        if(c.isAce() && c.getValue() == 1)
+        {
+            c.setAce(false);
+        }
+        primaryHand.addCard(c);
+    }
     
+    public ArrayList<Card> getPrimaryHand()
+    {
+        return primaryHand.getHand();
+    }
+    
+    public void split2()
+    {
+        primaryHand = splits.get(splitNum);
+        splitNum++;
+        Card c = hand.getHand().get(1);
+        
+        if(c.isAce() && c.getValue() == 1)
+        {
+            c.setAce(false);
+        }
+        primaryHand.addCard(c);
+    }
     /**
      * Gets the value of the hand
      * @return The value of the hand
      */
     public int getHandValue()
     {
-        return hand.getValue();
+        return primaryHand.getValue();
     }
     
     /**
@@ -48,7 +90,7 @@ public class Person
      */
     public boolean isBust()
     {
-        return hand.isBust();
+        return primaryHand.isBust();
     }
     
     /**
@@ -57,45 +99,37 @@ public class Person
      */
     public void hit(Card c)
     {
-        hand.addCard(c);
-        hand.getValue();
+        primaryHand.addCard(c);
+        primaryHand.getValue();
     }
     
     public void addCard(Card c)
     {
-        hand.addCard(c);
+        primaryHand.addCard(c);
     }
     
     /**
-     * Gives the number of cardsin the hand
+     * Gives the number of cardsin the primaryHand
      * @return The number of cards in the hand
      */
     public int getNumCards()
     {
-        return hand.numCards();
+        return primaryHand.numCards();
     }
     
-    public ArrayList<Card> getHand()
-    {
-        return hand.getHand();
-    }
     public boolean hasBlackJack()
     {
-        return hand.isBlackJack();
+        return primaryHand.isBlackJack();
     }
     
     public boolean hasFiveCardCharlie()
     {
-        return hand.isFiveCardCharlie();
+        return primaryHand.isFiveCardCharlie();
     }
     public void clearHand()
     {
-        hand.clearHand();
+        primaryHand.clearHand();
     }
     
-    public JPanel getCards()
-    {
-        return hand.updateCards();
-    }
     
 }

@@ -7,6 +7,7 @@
 package BlackJack;
 
 import java.util.ArrayList;
+import javax.swing.JPanel;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,26 +41,6 @@ public class DealerTest {
     }
 
     /**
-     * Test of isAt17 method, of class Dealer.
-     */
-    @Test
-    public void testIsAt17() {
-        System.out.println("isAt17");
-        Dealer instance = new Dealer("Dealer", 5, new Player("", 100));
-        
-        instance.hit(new Card("King", "jkl", 10));
-        instance.hit(new Card("Ace", "jkl", 11));
-        
-        assertTrue(instance.isAt17());
-        
-        for(int i = 0; i < 5; i++)
-        {
-            instance.hit(new Card("Ace", "jkl", 11));
-            assertFalse(instance.isAt17());
-        }
-    }
-
-    /**
      * Test of draw method, of class Dealer.
      */
     @Test
@@ -71,16 +52,6 @@ public class DealerTest {
         assertTrue(instance.getShoe().get((52 * 5) - 1).equals(c));
         
         
-    }
-
-    /**
-     * Test of start method, of class Dealer.
-     */
-    @Test
-    public void testStart() {
-        System.out.println("start");
-        Dealer instance = new Dealer("Name", 5, new Player("Jordan", 1000));
-        instance.start();
     }
 
     /**
@@ -106,90 +77,6 @@ public class DealerTest {
         Card c = null;
         Dealer instance = null;
         instance.hit(c);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of playerHand method, of class Dealer.
-     */
-    @Test
-    public void testPlayerHand() {
-        System.out.println("playerHand");
-        Dealer instance = null;
-        instance.playerHand();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of dealerHand method, of class Dealer.
-     */
-    @Test
-    public void testDealerHand() {
-        System.out.println("dealerHand");
-        Dealer instance = null;
-        instance.dealerHand();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isDone method, of class Dealer.
-     */
-    @Test
-    public void testIsDone() {
-        System.out.println("isDone");
-        Dealer instance = null;
-        boolean expResult = false;
-        boolean result = instance.isDone();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setCards method, of class Dealer.
-     */
-    @Test
-    public void testSetCards() {
-        System.out.println("setCards");
-        Dealer instance = new Dealer("", 5, new Player("", 1000));
-        instance.setCards();
-    }
-
-    /**
-     * Test of results method, of class Dealer.
-     */
-    @Test
-    public void testResults() {
-        System.out.println("results");
-        Dealer instance = null;
-        instance.results();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of cleanUp method, of class Dealer.
-     */
-    @Test
-    public void testCleanUp() {
-        System.out.println("cleanUp");
-        Dealer instance = null;
-        instance.cleanUp();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of askInsurance method, of class Dealer.
-     */
-    @Test
-    public void testAskInsurance() {
-        System.out.println("askInsurance");
-        Dealer instance = null;
-        instance.askInsurance();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -257,6 +144,48 @@ public class DealerTest {
         Dealer instance = null;
         boolean expResult = false;
         boolean result = instance.upCardIsAce();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getHand method, of class Dealer.
+     */
+    @Test
+    public void testGetHand() {
+        System.out.println("getHand");
+        Dealer instance = null;
+        ArrayList expResult = null;
+        ArrayList result = instance.getHand();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getCards method, of class Dealer.
+     */
+    @Test
+    public void testGetCards() {
+        System.out.println("getCards");
+        Dealer instance = null;
+        JPanel expResult = null;
+        JPanel result = instance.getCards();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isHard17 method, of class Dealer.
+     */
+    @Test
+    public void testIsHard17() {
+        System.out.println("isHard17");
+        Dealer instance = null;
+        boolean expResult = false;
+        boolean result = instance.isHard17();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

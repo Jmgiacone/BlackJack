@@ -30,10 +30,6 @@ public class Hand
         hand = new ArrayList<>(5);
     }
     
-    public void clearHand()
-    {
-        hand.clear();
-    }
     /**
      * A clone constructor that clones a hand passed in
      * @param h The hand to be cloned 
@@ -42,6 +38,10 @@ public class Hand
     {
         value = h.value;
         hand = h.hand;
+    }
+    public void clearHand()
+    {
+        hand.clear();
     }
     
     /**

@@ -16,7 +16,7 @@ import org.junit.runners.Suite;
  * @author Jordan
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({DeckTest.class, CardTest.class, HandTest.class, PlayerTest.class, DealerTest.class, TestRemoveTest.class, ShoeTest.class})
+@Suite.SuiteClasses({GuiWorkTest.class, HandTest.class, CardTest.class, BlackJackGuiTest.class, AidsGeneratorTest.class, PersonTest.class, BJGuiTest.class, AidsRunnerTest.class, PlayerTest.class, DealerTest.class, moreGuiWorkTest.class, DeckTest.class, AGameTest.class, JFrameGridBagLayoutTest.class, BlackJackAppletGridBagLayoutTest.class, BlackJackAppletTest.class, TestRemoveTest.class, GridBagRunnerTest.class, ShoeTest.class})
 public class BlackJackSuite {
 
     @BeforeClass

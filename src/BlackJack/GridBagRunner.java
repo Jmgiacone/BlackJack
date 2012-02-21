@@ -13,12 +13,6 @@ public class GridBagRunner
 {
     public static void main(String[] args)
     {
-        
-        JFrameGridBagLayout j = new JFrameGridBagLayout();
-
-        j.setTitle("Jordan Giacone BlackJack");
-        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        j.setVisible(true);
-        j.setSize(800, 700);
+        JFrameGridBagLayout j = new JFrameGridBagLayout();  
     }
 }

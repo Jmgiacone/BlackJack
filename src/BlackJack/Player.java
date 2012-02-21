@@ -30,6 +30,7 @@ public class Player extends Person
         money = m;
         insurance = false;
         hand = new Hand();
+        primaryHand = hand;
     }
     
     /**
@@ -49,24 +50,19 @@ public class Player extends Person
     {
         bet = 0;
     }
-    public ArrayList<Card> split1()
-    {
-        return (ArrayList)hand.getHand().subList(0, 0);
-    }
     
-    public ArrayList<Card> split2()
-    {
-        return (ArrayList)hand.getHand().subList(1, 1);
-    }
     public void winInsurance()
     {
-        money += 2 *insuranceBet;
+        money += 4 * insuranceBet;
         insurance = false;
+        bet = 0;
     }
     public void insurance(double aBet)
     {
         //Insurance pays 2:1
         insuranceBet = aBet;
+        money -= insuranceBet;
+        insurance = true;
     }
     public void doubleDown()
     {
@@ -90,11 +86,7 @@ public class Player extends Person
     }
     public void win()
     {
-        if(insurance)
-        {
-            
-        }
-        else if(hand.isBlackJack())
+        if(hand.isBlackJack())
         {
             money += bet * 2.5;
         }
@@ -131,8 +123,8 @@ public class Player extends Person
         return bet;
     }
     
-    public JPanel updateCards()
+    public JPanel getPrimaryCards()
     {
-        return hand.updateCards();
+        return primaryHand.updateCards();
     }
 }

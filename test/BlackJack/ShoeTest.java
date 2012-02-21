@@ -87,4 +87,29 @@ public class ShoeTest {
         String result = instance.toString();
         System.out.println(result);
     }
+
+    /**
+     * Test of initCards method, of class Shoe.
+     */
+    @Test
+    public void testInitCards() {
+        System.out.println("initCards");
+        int decks = 0;
+        Shoe instance = new Shoe();
+        instance.initCards(decks);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of reDoCards method, of class Shoe.
+     */
+    @Test
+    public void testReDoCards() {
+        System.out.println("reDoCards");
+        Shoe instance = new Shoe();
+        instance.reDoCards();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 }

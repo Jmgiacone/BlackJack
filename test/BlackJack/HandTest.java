@@ -1,6 +1,7 @@
 package BlackJack;
 
 import java.util.ArrayList;
+import javax.swing.JPanel;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -196,5 +197,57 @@ public class HandTest {
         }
         boolean result = instance.isFiveCardCharlie();
         assertTrue(result);
+    }
+
+    /**
+     * Test of clearHand method, of class Hand.
+     */
+    @Test
+    public void testClearHand() {
+        System.out.println("clearHand");
+        Hand instance = new Hand();
+        instance.clearHand();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of split method, of class Hand.
+     */
+    @Test
+    public void testSplit() {
+        System.out.println("split");
+        Hand instance = new Hand();
+        instance.split();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of updateCards method, of class Hand.
+     */
+    @Test
+    public void testUpdateCards() {
+        System.out.println("updateCards");
+        Hand instance = new Hand();
+        JPanel expResult = null;
+        JPanel result = instance.updateCards();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toString method, of class Hand.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        Hand instance = new Hand();
+        String expResult = "";
+        String result = instance.toString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 }

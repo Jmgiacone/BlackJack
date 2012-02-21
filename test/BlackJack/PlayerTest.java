@@ -5,6 +5,7 @@
 package BlackJack;
 
 import java.util.ArrayList;
+import javax.swing.JPanel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -146,20 +147,6 @@ public class PlayerTest {
     }
 
     /**
-     * Test of getHand method, of class Player.
-     */
-    @Test
-    public void testGetHand() {
-        System.out.println("getHand");
-        Player instance = null;
-        ArrayList expResult = null;
-        ArrayList result = instance.getHand();
-        assertEquals(expResult, result);
-       
-        
-    }
-
-    /**
      * Test of hasBlackJack method, of class Player.
      */
     @Test
@@ -246,5 +233,83 @@ public class PlayerTest {
         assertEquals(expResult, result);
        
         
+    }
+
+    /**
+     * Test of lose method, of class Player.
+     */
+    @Test
+    public void testLose() {
+        System.out.println("lose");
+        Player instance = null;
+        instance.lose();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of winInsurance method, of class Player.
+     */
+    @Test
+    public void testWinInsurance() {
+        System.out.println("winInsurance");
+        Player instance = null;
+        instance.winInsurance();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of hasInsurance method, of class Player.
+     */
+    @Test
+    public void testHasInsurance() {
+        System.out.println("hasInsurance");
+        Player instance = null;
+        boolean expResult = false;
+        boolean result = instance.hasInsurance();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of push method, of class Player.
+     */
+    @Test
+    public void testPush() {
+        System.out.println("push");
+        Player instance = null;
+        instance.push();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getBet method, of class Player.
+     */
+    @Test
+    public void testGetBet() {
+        System.out.println("getBet");
+        Player instance = null;
+        double expResult = 0.0;
+        double result = instance.getBet();
+        assertEquals(expResult, result, 0.0);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getPrimaryCards method, of class Player.
+     */
+    @Test
+    public void testGetPrimaryCards() {
+        System.out.println("getPrimaryCards");
+        Player instance = null;
+        JPanel expResult = null;
+        JPanel result = instance.getPrimaryCards();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 }

@@ -4,6 +4,7 @@
  */
 package BlackJack;
 
+import javax.swing.ImageIcon;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -137,5 +138,32 @@ public class CardTest {
         Card instance = new Card();
         instance.setVisibility(false);
         assertFalse(instance.isVisible());
+    }
+
+    /**
+     * Test of getImage method, of class Card.
+     */
+    @Test
+    public void testGetImage() {
+        System.out.println("getImage");
+        Card instance = new Card();
+        ImageIcon expResult = null;
+        ImageIcon result = instance.getImage();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setTable method, of class Card.
+     */
+    @Test
+    public void testSetTable() {
+        System.out.println("setTable");
+        boolean t = false;
+        Card instance = new Card();
+        instance.setTable(t);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 }
