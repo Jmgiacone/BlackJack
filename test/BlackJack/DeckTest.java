@@ -102,6 +102,6 @@ public class DeckTest {
         Deck instance = new Deck();
         Card expResult = null;
         Card result = instance.getCard();
-        assertEquals(expResult, result);;
+        assertEquals(expResult, result);
     }
 }

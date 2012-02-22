@@ -34,17 +34,7 @@ public class HandTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of getHand method, of class Hand.
-     */
-    @Test
-    public void testGetHand() {
-        System.out.println("getHand");
-        Hand instance = new Hand();
-        ArrayList expResult = null;
-        ArrayList result = instance.getHand();
-        //assertEquals(expResult, result);
-    }
+    
 
     /**
      * Test of addCard method, of class Hand.
@@ -206,48 +196,15 @@ public class HandTest {
     public void testClearHand() {
         System.out.println("clearHand");
         Hand instance = new Hand();
+        instance.addCard(new Card("jkl", "kjl", 100));
         instance.clearHand();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(instance.getHand().isEmpty());
     }
 
-    /**
-     * Test of split method, of class Hand.
-     */
-    @Test
-    public void testSplit() {
-        System.out.println("split");
-        Hand instance = new Hand();
-        instance.split();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    
+
+    
     }
 
-    /**
-     * Test of updateCards method, of class Hand.
-     */
-    @Test
-    public void testUpdateCards() {
-        System.out.println("updateCards");
-        Hand instance = new Hand();
-        JPanel expResult = null;
-        JPanel result = instance.updateCards();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
 
-    /**
-     * Test of toString method, of class Hand.
-     */
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        Hand instance = new Hand();
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-}

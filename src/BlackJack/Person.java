@@ -1,15 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package BlackJack;
 
 import java.util.ArrayList;
-import javax.swing.JPanel;
 
 /**
- *
- * @author Jordan
+ * The Person class which has subclasses Dealer and Player(Thanks to Danny Davis)
+ * @author Jordan Giacone
  */
 public class Person 
 {
@@ -18,7 +13,10 @@ public class Person
     private ArrayList<Hand> splits;
     private int splitNum;
     
-    
+    /**
+     * Main constructor for a Person
+     * @param n Their name
+     */
     public Person(String n)
     {
         splits = new ArrayList<>();
@@ -29,6 +27,9 @@ public class Person
         primaryHand = hand;
     }
     
+    /**
+     * Sets up the ArrayList<Hand> that is splits
+     */
     private void setSplits()
     {
         for(int i = 0; i < 16; i++)
@@ -45,6 +46,9 @@ public class Person
         return name;
     }
     
+    /**
+     * Sets up the first split for the person
+     */
     public void split1()
     {
         primaryHand = splits.get(splitNum);
@@ -58,11 +62,18 @@ public class Person
         primaryHand.addCard(c);
     }
     
+    /**
+     * Returns the primary hand of the player
+     * @return Their primary Hand in the form of an ArrayList
+     */
     public ArrayList<Card> getPrimaryHand()
     {
         return primaryHand.getHand();
     }
     
+    /**
+     * Sets up the 2nd split for the player
+     */
     public void split2()
     {
         primaryHand = splits.get(splitNum);
@@ -103,6 +114,10 @@ public class Person
         primaryHand.getValue();
     }
     
+    /**
+     * Adds a Card to the hand
+     * @param c The card to add
+     */
     public void addCard(Card c)
     {
         primaryHand.addCard(c);
@@ -117,19 +132,29 @@ public class Person
         return primaryHand.numCards();
     }
     
+    /**
+     * Does the person have a BlackJack?
+     * @return If they have a blackjack
+     */
     public boolean hasBlackJack()
     {
         return primaryHand.isBlackJack();
     }
     
+    /**
+     * Do they have a 5 Card Charlie?
+     * @return If they have a 5 Card Charlie
+     */
     public boolean hasFiveCardCharlie()
     {
         return primaryHand.isFiveCardCharlie();
     }
+    
+    /**
+     * Clears the hand of the Person
+     */
     public void clearHand()
     {
         primaryHand.clearHand();
     }
-    
-    
 }

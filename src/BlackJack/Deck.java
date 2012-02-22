@@ -1,7 +1,6 @@
 package BlackJack;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -144,11 +143,20 @@ public class Deck
         }
     }
     
+    /**
+     * Gets the Card at the given index
+     * @param index The index of which to find the card
+     * @return The found card
+     */
     public Card getCard(int index)
     {
         return deck.get(index);
     }
     
+    /**
+     * Gets the top Card
+     * @return The top Card of the Deck
+     */
     public Card getCard()
     {
         return deck.get(0);

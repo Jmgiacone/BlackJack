@@ -1,20 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package BlackJack;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Jordan
+ * The Hand is an ArrayList<Card> represent which Cards are currently held by
+ * the plaeyr
+ * @author Jordan Giacone
  */
 public class Hand 
 {
@@ -39,6 +34,10 @@ public class Hand
         value = h.value;
         hand = h.hand;
     }
+    
+    /**
+     * Clears the hand of any data whatsoever
+     */
     public void clearHand()
     {
         hand.clear();
@@ -106,22 +105,6 @@ public class Hand
         return hand.size();
     }
     
-    /**
-     * 
-     */
-    public void split()
-    {
-        if(hand.size() != 2 && 
-                hand.get(0).
-                getRank().
-                equalsIgnoreCase(hand.
-                get(1).
-                getRank()))
-        {
-            
-        }
-        //Put code here
-    }
     /**
      * Tells if the player is bust or not
      * @return True if the hand is over 21 with all aces being set to one
@@ -209,6 +192,10 @@ public class Hand
         return !isBust() && numCards() >= 5;
     }
     
+    /**
+     * Returns a JPanel populated with the Cards in the Hand
+     * @return A JPanel that has all the Cards in the Hand
+     */
     public JPanel updateCards()
     {
         GridBagConstraints c = new GridBagConstraints();
@@ -224,6 +211,11 @@ public class Hand
         
         return panel;
     }
+    
+    /**
+     * A basic toString
+     * @return A String representation of the instance variables in the class
+     */
     public String toString()
     {
         String s = "";

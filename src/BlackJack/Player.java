@@ -1,15 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package BlackJack;
 
-import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Jordan
+ * The Player class, inheritng from Person. One of the driving classes of the game
+ * @author Jordan Giacone
  */
 public class Player extends Person
 {
@@ -46,17 +41,28 @@ public class Player extends Person
         insurance = p.insurance;
     }
     
+    /**
+     * The player doesn't win their money back and loses the round
+     */
     public void lose()
     {
         bet = 0;
     }
     
+    /**
+     * When the player wins their insurance bet
+     */
     public void winInsurance()
     {
         money += 4 * insuranceBet;
         insurance = false;
         bet = 0;
     }
+    
+    /**
+     * Sets up the insurance bet
+     * @param aBet The bet to be bet
+     */
     public void insurance(double aBet)
     {
         //Insurance pays 2:1
@@ -64,6 +70,10 @@ public class Player extends Person
         money -= insuranceBet;
         insurance = true;
     }
+    
+    /**
+     * When the player doubles their bet and is forced to stand
+     */
     public void doubleDown()
     {
         //If dealer has ace
@@ -80,10 +90,18 @@ public class Player extends Person
         return money;
     }
     
+    /**
+     * Returns if the player currently has insurance
+     * @return if the player currently has insurance
+     */
     public boolean hasInsurance()
     {
         return insurance;
     }
+    
+    /**
+     * Wins the player their money back. If it's a BlackJack, pays 3:2
+     */
     public void win()
     {
         if(hand.isBlackJack())
@@ -99,7 +117,7 @@ public class Player extends Person
     }
     
     /**
-     * 
+     * Sets the bet for the player
      * @param b 
      */
     public void bet(double b)
@@ -108,21 +126,38 @@ public class Player extends Person
         money -= bet;
     }
     
+    /**
+     * Called if the player and dealer have the same hands. Player wins no extra
+     * money but doesn't lose any either
+     */
     public void push()
     {
         money += bet;
         bet = 0;
     }
+    
+    /**
+     * Just a simple toString
+     * @return A String representation of the instance variables of the Player
+     */
     public String toString()
     {
         return name+ "Money: " +money+ "Cards:\n" + hand;
     }
     
+    /**
+     * Returns the money that the player bet
+     * @return The money that they bet
+     */
     public double getBet()
     {
         return bet;
     }
     
+    /**
+     * Returns a JPanel populated with the cards in the hand
+     * @return a JPanel populated with the cards in the hand
+     */
     public JPanel getPrimaryCards()
     {
         return primaryHand.updateCards();

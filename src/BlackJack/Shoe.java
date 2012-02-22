@@ -2,7 +2,6 @@ package BlackJack;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -36,6 +35,10 @@ public class Shoe
         }
     }
     
+    /**
+     * Sets up all the Cards in the Shoe with the given amount of decks
+     * @param decks The amount of decks to include
+     */
     public void initCards(int decks)
     {
         for(int i = 0; i < decks; i++)
@@ -80,6 +83,9 @@ public class Shoe
         }
     }
     
+    /**
+     * Completely clears the Shoe, then randomly repopulates it
+     */
     public void reDoCards()
     {
         shoe.clear();

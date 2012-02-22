@@ -1,12 +1,5 @@
 package BlackJack;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBuffer;
-import java.awt.image.Raster;
-import java.awt.image.SampleModel;
 import javax.swing.ImageIcon;
 
 /**
@@ -43,7 +36,6 @@ public class Card
         face = new ImageIcon(faceLocation);
         
     }
-    //RASTER
     /**
      * This is the default constructor that constructs default values for a 
      * card, A joker of Narwhals with a value of -1
@@ -142,6 +134,10 @@ public class Card
         visible = v;
     }
     
+    /**
+     * Gets the image representing the front or back of the Card
+     * @return The image corresponding
+     */
     public ImageIcon getImage()
     {
         if(isTable)
@@ -158,6 +154,11 @@ public class Card
         }
     }
     
+    /**
+     * Sets the variable isTable to true or false. This represents whether or 
+     * not the card is colored like the table
+     * @param t True or false to be isTable
+     */
     public void setTable(boolean t)
     {
         isTable = t;

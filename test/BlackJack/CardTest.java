@@ -114,7 +114,7 @@ public class CardTest {
     public void testToString() {
         System.out.println("toString");
         Card instance = new Card("Ace", "Spades", 11);
-        assertTrue(instance.toString().equalsIgnoreCase("Ace of Spades(11)"));
+        assertTrue(instance.toString().equalsIgnoreCase("Ace of Spades(11)\n"));
     }
 
     /**
@@ -140,30 +140,5 @@ public class CardTest {
         assertFalse(instance.isVisible());
     }
 
-    /**
-     * Test of getImage method, of class Card.
-     */
-    @Test
-    public void testGetImage() {
-        System.out.println("getImage");
-        Card instance = new Card();
-        ImageIcon expResult = null;
-        ImageIcon result = instance.getImage();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setTable method, of class Card.
-     */
-    @Test
-    public void testSetTable() {
-        System.out.println("setTable");
-        boolean t = false;
-        Card instance = new Card();
-        instance.setTable(t);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
 }

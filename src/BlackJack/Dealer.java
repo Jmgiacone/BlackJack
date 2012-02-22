@@ -1,12 +1,11 @@
 package BlackJack;
 
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Jordan
+ * The Dealer class that helps run player
+ * @author Jordan Giacone
  */
 public class Dealer extends Person
 {
@@ -16,9 +15,9 @@ public class Dealer extends Person
     ArrayList<Hand> splitHands;
     
     /**
-     * 
-     * @param n
-     * @param d 
+     * The constructor for dealer
+     * @param n Their name
+     * @param d Number of decks to incorporate into the shoe
      */
     public Dealer(String n, int d, Player p)
     {
@@ -30,6 +29,10 @@ public class Dealer extends Person
         
     }
     
+    /**
+     * A clone constructor that takes in another Dealer object
+     * @param d The Dealer to be cloned
+     */
     public Dealer(Dealer d)
     {
         super(d.name);
@@ -40,10 +43,19 @@ public class Dealer extends Person
         splitHands = d.splitHands;
     }
     
+    /**
+     * Returns the ArrayList that contains the cards of the hand
+     * @return The ArrayList<Card> contained in hand
+     */
     public ArrayList<Card> getHand()
     {
         return primaryHand.getHand();
     }
+    
+    /**
+     * If the dealer has an ace showing
+     * @return If there is an ace that is showing
+     */
     public boolean hasAceShowing()
     {
         if(getNumCards() == 0)
@@ -53,21 +65,38 @@ public class Dealer extends Person
         return primaryHand.getHand().get(0).isAce();
     }
     
+    /**
+     * Returns the card in the hand contained in a JPanel. Idea borrowed from 
+     * Keith Harris
+     * @return a JPanel populated with the cards in the hand
+     */
     public JPanel getCards()
     {
         return primaryHand.updateCards();
     }
     
+    /**
+     * Returns a card from the shoe
+     * @return A card from the shoe
+     */
     public Card draw()
     {
         return getShoe().remove(0);
     }
     
+    /**
+     * Gets the ArrayList that is the shoe
+     * @return The ArrayList<Card> contained in the shoe
+     */
     public ArrayList<Card> getShoe()
     {
         return shoe.getShoe();
     }
     
+    /**
+     * Whether or not the dealer has a soft ace
+     * @return If they have a soft ace
+     */
     public boolean hasSoftAce()
     {
         for(Card c : primaryHand.getHand())
@@ -80,15 +109,27 @@ public class Dealer extends Person
         return false;
     }
     
+    /**
+     * If the dealer is at a hard 17
+     * @return If the dealer has a hard 17
+     */
     public boolean isHard17()
     {
         return getHandValue() >= 17 && !hasSoftAce();
     }
     
+    /**
+     * Deletes all cards from the shoe, then randomly repopulates it
+     */
     public void reDoCards()
     {
         shoe.reDoCards();
     }
+    
+    /**
+     * If the dealers up card is an ace, returns true
+     * @return If the dealers up card is an ace
+     */
     public boolean upCardIsAce()
     {
         if(getNumCards() != 2)

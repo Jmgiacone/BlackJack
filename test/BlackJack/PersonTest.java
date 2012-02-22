@@ -43,51 +43,15 @@ public class PersonTest {
     @Test
     public void testGetName() {
         System.out.println("getName");
-        Person instance = null;
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Person instance = new Person("Jordan");
+        assertEquals("Jordan", instance.getName());
     }
 
-    /**
-     * Test of split1 method, of class Person.
-     */
-    @Test
-    public void testSplit1() {
-        System.out.println("split1");
-        Person instance = null;
-        instance.split1();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
 
-    /**
-     * Test of getPrimaryHand method, of class Person.
-     */
-    @Test
-    public void testGetPrimaryHand() {
-        System.out.println("getPrimaryHand");
-        Person instance = null;
-        ArrayList expResult = null;
-        ArrayList result = instance.getPrimaryHand();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
 
-    /**
-     * Test of split2 method, of class Person.
-     */
-    @Test
-    public void testSplit2() {
-        System.out.println("split2");
-        Person instance = null;
-        instance.split2();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
 
     /**
      * Test of getHandValue method, of class Person.
@@ -95,12 +59,11 @@ public class PersonTest {
     @Test
     public void testGetHandValue() {
         System.out.println("getHandValue");
-        Person instance = null;
-        int expResult = 0;
-        int result = instance.getHandValue();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Person instance = new Person("Jordan");
+        
+        instance.addCard(new Card("ACe", "Spades", 11));
+        instance.addCard(new Card("ten", "spades", 10));
+        assertEquals(21, instance.getHandValue());
     }
 
     /**
@@ -109,25 +72,13 @@ public class PersonTest {
     @Test
     public void testIsBust() {
         System.out.println("isBust");
-        Person instance = null;
-        boolean expResult = false;
-        boolean result = instance.isBust();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of hit method, of class Person.
-     */
-    @Test
-    public void testHit() {
-        System.out.println("hit");
-        Card c = null;
-        Person instance = null;
-        instance.hit(c);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Person instance = new Person("jordan");
+        
+        for(int i = 0; i < 5; i++)
+        {
+            instance.addCard(new Card("jkl", "kjl", 10));
+        }
+        assertTrue(instance.isBust());
     }
 
     /**
@@ -136,11 +87,11 @@ public class PersonTest {
     @Test
     public void testAddCard() {
         System.out.println("addCard");
-        Card c = null;
-        Person instance = null;
+        Card c = new Card("jkl", "kjl", 10);
+        Person instance = new Person("Jordan");
         instance.addCard(c);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        assertTrue(instance.getHandValue() == 10);
     }
 
     /**
@@ -149,12 +100,13 @@ public class PersonTest {
     @Test
     public void testGetNumCards() {
         System.out.println("getNumCards");
-        Person instance = null;
+        Person instance = new Person("Jordan");
+        instance.addCard(new Card("jkl", "kjl", 10));
         int expResult = 0;
         int result = instance.getNumCards();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(result == 1);
+        
+        
     }
 
     /**
@@ -163,12 +115,12 @@ public class PersonTest {
     @Test
     public void testHasBlackJack() {
         System.out.println("hasBlackJack");
-        Person instance = null;
+        Person instance = new Person("JL");
+        instance.addCard(new Card("Ace", "kjl", 11));
+        instance.addCard(new Card("jkl", "kjl", 10));
         boolean expResult = false;
         boolean result = instance.hasBlackJack();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(result);
     }
 
     /**
@@ -177,12 +129,17 @@ public class PersonTest {
     @Test
     public void testHasFiveCardCharlie() {
         System.out.println("hasFiveCardCharlie");
-        Person instance = null;
+        Person instance = new Person("");
         boolean expResult = false;
+        
+        
+        for(int i = 0; i < 5; i++)
+        {
+            instance.addCard(new Card("Ace", "kjl", 11));
+        }
+        
         boolean result = instance.hasFiveCardCharlie();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(result);
     }
 
     /**
@@ -191,9 +148,11 @@ public class PersonTest {
     @Test
     public void testClearHand() {
         System.out.println("clearHand");
-        Person instance = null;
+        Person instance = new Person("");
+        
+        instance.addCard(new Card("Ace", "spades", 11));
         instance.clearHand();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        assertTrue(instance.getHandValue() == 0);
     }
 }
