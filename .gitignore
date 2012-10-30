@@ -14,3 +14,13 @@ nb-configuration.xml
 *.jar
 *.war
 *.ear
+*.jpg
+*.png
+*.txt
+*.docx
+*.policy
+*.xml
+*.pdf
+*.mf
+*.xlsx
+*.properties
