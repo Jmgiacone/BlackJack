@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 /**
  * The Hand is an ArrayList<Card> represent which Cards are currently held by
- * the plaeyr
+ * the player
  * @author Jordan Giacone
  */
 public class Hand 

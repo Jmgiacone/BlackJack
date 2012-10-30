@@ -28,9 +28,9 @@ public class Card
         value = newValue;
         visible = true;
         isTable = false;
-        faceLocation = "images/150x215/"+rank+suit+".png";
-        backLocation = "images/150x215/back-blue-150-3.png";
-        tableLocation = "images/150x215/tableColor.png";
+        faceLocation = "images/"+rank+suit+".png";
+        backLocation = "images/back-blue-150-3.png";
+        tableLocation = "images/tableColor.png";
         backing = new ImageIcon(backLocation);
         table = new ImageIcon(tableLocation);
         face = new ImageIcon(faceLocation);

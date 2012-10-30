@@ -122,7 +122,7 @@ public class BlackJackGUI extends JFrame
     }
     
     /**
-     * The listener that listens for the enter key buing pushed in the bet text field
+     * The listener that listens for the enter key being pushed in the bet text field
      * on the main game window
      */
     private class KeyAdapter implements KeyListener
@@ -153,7 +153,7 @@ public class BlackJackGUI extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             try {
-                loadFile((File)dropDown.getSelectedItem());
+                loadFile((File)dropDown.getSelectedItem());//Once again, ugly
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }
@@ -235,7 +235,16 @@ public class BlackJackGUI extends JFrame
         initFrames();
         initFields();
         initRadioButtons();
-        dropDown = new JComboBox(new File("saves").listFiles());
+        
+        try
+        {
+            dropDown = new JComboBox(new File("saves").listFiles());
+        }
+        catch(NullPointerException e)
+        {
+            JOptionPane.showMessageDialog(null, "Folder \"saves\" not found, please create one");
+            System.exit(0);
+        }
         asksInsurance = false;
         firstTime = true;
         splitting = false;
@@ -558,7 +567,7 @@ public class BlackJackGUI extends JFrame
             {
                 c.gridwidth = 5;
                 c.gridy = 1; 
-                middlePanel.add(new JLabel(new ImageIcon("images/150x215/tableAdvert_big.png")), c);
+                middlePanel.add(new JLabel(new ImageIcon("images/tableAdvert_big.png")), c);
                 middlePanel.setBackground(new Color(0,100,0));
                 add(middlePanel, BorderLayout.CENTER);
                 firstTime = false;
@@ -566,7 +575,7 @@ public class BlackJackGUI extends JFrame
             else//Reset to green table with middle picture before pressing Next Round
             {
                 middlePanel.removeAll();
-                middlePanel.add(new JLabel(new ImageIcon("images/150x215/tableAdvert_big.png")), c);
+                middlePanel.add(new JLabel(new ImageIcon("images/tableAdvert_big.png")), c);
                 middlePanel.validate();
                 setSize(getWidth(), getHeight() + 1);
                 setSize(getWidth(), getHeight());
@@ -581,7 +590,7 @@ public class BlackJackGUI extends JFrame
                 middlePanel.add(dealer.getCards(), c);
 
                 c.gridy = 1; 
-                middlePanel.add(new JLabel(new ImageIcon("images/150x215/tableAdvert_big.png")), c);
+                middlePanel.add(new JLabel(new ImageIcon("images/tableAdvert_big.png")), c);
                 c.gridy = 2;
                 middlePanel.add(player.getPrimaryCards(), c);
                 middlePanel.validate();
@@ -597,7 +606,7 @@ public class BlackJackGUI extends JFrame
                 middlePanel.add(dealer.getCards(), c);
 
                 c.gridy = 1; 
-                middlePanel.add(new JLabel(new ImageIcon("images/150x215/tableAdvert_big.png")), c);
+                middlePanel.add(new JLabel(new ImageIcon("images/tableAdvert_big.png")), c);
                 c.gridy = 2;
                 middlePanel.add(player.getPrimaryCards(), c);
                 middlePanel.validate();
@@ -1250,7 +1259,17 @@ public class BlackJackGUI extends JFrame
      */
     private void save() throws FileNotFoundException
     {
-        PrintWriter out = new PrintWriter(new File("saves/"+player.getName()+".txt"));
+        PrintWriter out;
+        try
+        {
+            out = new PrintWriter(new File("saves/"+player.getName()+".txt"));
+        }
+        catch(FileNotFoundException e)
+        {
+            JOptionPane.showMessageDialog(null, "Directory not found... :(\n"
+                    + "Please create a \"saves\" folder");
+            return;
+        }
         
         out.println(player.getName());
         out.println(player.getMoney());
