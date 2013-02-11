@@ -1,17 +1,18 @@
 package BlackJack;
 
+import java.util.ArrayList;
 import javax.swing.JPanel;
-
 /**
- * The Player class, inheritng from Person. One of the driving classes of the game
+ * The Player class, inheriting from Person. One of the driving classes of the game
  * @author Jordan Giacone
  */
 public class Player extends Person
 {
-    //private FTW
-    
     private double bet, money, insuranceBet;
+    private Hand primaryHand;
     private boolean insurance;
+    private ArrayList<Hand> splits;
+    private int splitNum;
     
     /**
      * Default Constructor. Takes in a String for the name
@@ -24,8 +25,7 @@ public class Player extends Person
         insuranceBet = 0.0;
         money = m;
         insurance = false;
-        hand = new Hand();
-        primaryHand = hand;
+        primaryHand = getHand();
     }
     
     /**
@@ -34,13 +34,16 @@ public class Player extends Person
      */
     public Player(Player p)
     {
-        super(p.name);
+        super(p.getName());
         money = p.money;
-        name = p.name;
         bet = p.bet;
         insurance = p.insurance;
     }
     
+    public Hand getPrimaryHand()
+    {
+        return primaryHand;
+    }
     /**
      * The player doesn't win their money back and loses the round
      */
@@ -104,7 +107,7 @@ public class Player extends Person
      */
     public void win()
     {
-        if(hand.isBlackJack())
+        if(getHand().isBlackJack())
         {
             money += bet * 2.5;
         }
@@ -127,7 +130,7 @@ public class Player extends Person
     }
     
     /**
-     * Called if the player and dealer have the same hands. Player wins no extra
+     * Called if the player and dealer have the same getHand()s. Player wins no extra
      * money but doesn't lose any either
      */
     public void push()
@@ -140,11 +143,51 @@ public class Player extends Person
      * Just a simple toString
      * @return A String representation of the instance variables of the Player
      */
+    @Override
     public String toString()
     {
-        return name+ "Money: " +money+ "Cards:\n" + hand;
+        return getName() + "Money: " +money+ "Cards:\n" + getHand();
     }
-    
+    /**
+     * Sets up the first split for the person
+     */
+    public void split1()
+    {
+        primaryHand = splits.get(splitNum);
+        splitNum++;
+        Card c = getHand().getHand().get(0);
+        
+        if(c.isAce() && c.getValue() == 1)
+        {
+            c.setAce(false);
+        }
+        primaryHand.add(c);
+    }
+    /**
+     * Sets up the ArrayList<Hand> that is splits
+     */
+    private void setSplits()
+    {
+        for(int i = 0; i < 16; i++)
+        {
+            splits.add(new Hand());
+        }
+    }
+    /**
+     * Sets up the 2nd split for the player
+     */
+    public void split2()
+    {
+        primaryHand = splits.get(splitNum);
+        splitNum++;
+        Card c = getHand().getHand().get(1);
+        
+        if(c.isAce() && c.getValue() == 1)
+        {
+            c.setAce(false);
+        }
+        primaryHand.add(c);
+    }
     /**
      * Returns the money that the player bet
      * @return The money that they bet
@@ -155,8 +198,8 @@ public class Player extends Person
     }
     
     /**
-     * Returns a JPanel populated with the cards in the hand
-     * @return a JPanel populated with the cards in the hand
+     * Returns a JPanel populated with the cards in the getHand()
+     * @return a JPanel populated with the cards in the getHand()
      */
     public JPanel getPrimaryCards()
     {

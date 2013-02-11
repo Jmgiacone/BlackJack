@@ -8,12 +8,11 @@ import javax.swing.JPanel;
 
 /**
  * The Hand is an ArrayList<Card> represent which Cards are currently held by
- * the player
+ * the plaeyr
  * @author Jordan Giacone
  */
 public class Hand 
 {
-    private int value;
     private ArrayList<Card> hand;
     
     /**
@@ -21,7 +20,6 @@ public class Hand
      */
     public Hand()
     {
-        value = 0;
         hand = new ArrayList<>(5);
     }
     
@@ -31,14 +29,13 @@ public class Hand
      */
     public Hand(Hand h)
     {
-        value = h.value;
         hand = h.hand;
     }
     
     /**
      * Clears the hand of any data whatsoever
      */
-    public void clearHand()
+    public void clear()
     {
         hand.clear();
     }
@@ -56,7 +53,7 @@ public class Hand
      * Adds Card c to the hand
      * @param c Card to be added
      */
-    public void addCard(Card c)
+    public void add(Card c)
     {
         hand.add(c);
         
@@ -78,7 +75,6 @@ public class Hand
                    }
              }
         }
-        getValue();
     }
     
     /**
@@ -87,7 +83,7 @@ public class Hand
      */
     public int getValue()
     {
-        value = 0;
+        int value = 0;
         for(Card c : hand)
         {
             value += c.getValue();
@@ -146,7 +142,7 @@ public class Hand
      */
     public boolean isBlackJack()
     {
-        return numCards() == 2 && is21();
+        return numCards() == 2 && getValue() == 21;
     }
     
     /**
@@ -189,7 +185,7 @@ public class Hand
      */
     public boolean isFiveCardCharlie()
     {
-        return !isBust() && numCards() >= 5;
+        return !isBust() && numCards() == 5;
     }
     
     /**
@@ -216,6 +212,7 @@ public class Hand
      * A basic toString
      * @return A String representation of the instance variables in the class
      */
+    @Override
     public String toString()
     {
         String s = "";

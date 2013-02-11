@@ -35,21 +35,12 @@ public class Dealer extends Person
      */
     public Dealer(Dealer d)
     {
-        super(d.name);
-        hand = d.hand;
+        super(d.getName());
+        setHand(d.getHand());
         shoe = d.shoe;
         player = d.player;
         done = false;
         splitHands = d.splitHands;
-    }
-    
-    /**
-     * Returns the ArrayList that contains the cards of the hand
-     * @return The ArrayList<Card> contained in hand
-     */
-    public ArrayList<Card> getHand()
-    {
-        return primaryHand.getHand();
     }
     
     /**
@@ -62,7 +53,7 @@ public class Dealer extends Person
         {
             return false;
         }
-        return primaryHand.getHand().get(0).isAce();
+        return getHand().getHand().get(0).isAce();
     }
     
     /**
@@ -72,7 +63,7 @@ public class Dealer extends Person
      */
     public JPanel getCards()
     {
-        return primaryHand.updateCards();
+        return getHand().updateCards();
     }
     
     /**
@@ -99,7 +90,7 @@ public class Dealer extends Person
      */
     public boolean hasSoftAce()
     {
-        for(Card c : primaryHand.getHand())
+        for(Card c : getHand().getHand())
         {
             if(c.isAce() && c.getValue() == 11)
             {
@@ -137,11 +128,11 @@ public class Dealer extends Person
             return false;
         }
         
-        if(primaryHand.getHand().get(0).isAce() && primaryHand.getHand().get(0).isVisible())
+        if(getHand().getHand().get(0).isAce() && getHand().getHand().get(0).isVisible())
         {
             return true;
         }
-        else if(primaryHand.getHand().get(1).isAce() && primaryHand.getHand().get(1).isVisible())
+        else if(getHand().getHand().get(1).isAce() && getHand().getHand().get(1).isVisible())
         {
             return false;
         }

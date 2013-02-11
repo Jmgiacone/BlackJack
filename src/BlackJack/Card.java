@@ -28,9 +28,9 @@ public class Card
         value = newValue;
         visible = true;
         isTable = false;
-        faceLocation = "images/"+rank+suit+".png";
-        backLocation = "images/back-blue-150-3.png";
-        tableLocation = "images/tableColor.png";
+        faceLocation = "images/150x215/" + rank + suit + ".png";
+        backLocation = "images/150x215/back-blue-150-3.png";
+        tableLocation = "images/150x215/tableColor.png";
         backing = new ImageIcon(backLocation);
         table = new ImageIcon(tableLocation);
         face = new ImageIcon(faceLocation);
@@ -65,14 +65,7 @@ public class Card
      */
     public void setAce(boolean toOne)
     {
-        if(isAce() && toOne)
-        {
-            value = 1;
-        }
-        else if(isAce() && !toOne)
-        {
-            value = 11;
-        }
+        value = isAce() && toOne ? 1 : 11;
     }
     /**
      * Returns the rank of the card
@@ -105,7 +98,7 @@ public class Card
     @Override
     public String toString()
     {
-        return rank+" of "+suit+"("+value+")" + "\n";
+        return rank + " of " + suit + "(" + value + ")" + "\n";
     }
     /**
      * Returns true if it's an ace

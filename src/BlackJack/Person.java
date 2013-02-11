@@ -1,17 +1,13 @@
 package BlackJack;
 
-import java.util.ArrayList;
-
 /**
  * The Person class which has subclasses Dealer and Player(Thanks to Danny Davis)
  * @author Jordan Giacone
  */
 public class Person 
 {
-    protected String name;
-    protected Hand hand, primaryHand;
-    private ArrayList<Hand> splits;
-    private int splitNum;
+    private final String NAME;
+    private Hand hand;
     
     /**
      * Main constructor for a Person
@@ -19,80 +15,47 @@ public class Person
      */
     public Person(String n)
     {
-        splits = new ArrayList<>();
-        setSplits();
-        name = n;
-        splitNum = 0;
+        NAME = n;
         hand = new Hand();
-        primaryHand = hand;
     }
     
-    /**
-     * Sets up the ArrayList<Hand> that is splits
-     */
-    private void setSplits()
-    {
-        for(int i = 0; i < 16; i++)
-        {
-            splits.add(new Hand());
-        }
-    }
+    
     /**
      * Returns the name of the Player
      * @return The name of the Player
      */
     public String getName()
     {
-        return name;
+        return NAME;
     }
     
-    /**
-     * Sets up the first split for the person
-     */
-    public void split1()
+    protected void setHand(Hand h)
     {
-        primaryHand = splits.get(splitNum);
-        splitNum++;
-        Card c = hand.getHand().get(0);
+        hand = new Hand();
         
-        if(c.isAce() && c.getValue() == 1)
+        for(Card c : h.getHand())
         {
-            c.setAce(false);
+            hand.add(c);
         }
-        primaryHand.addCard(c);
     }
     
     /**
      * Returns the primary hand of the player
      * @return Their primary Hand in the form of an ArrayList
      */
-    public ArrayList<Card> getPrimaryHand()
+    public Hand getHand()
     {
-        return primaryHand.getHand();
+        return hand;
     }
     
-    /**
-     * Sets up the 2nd split for the player
-     */
-    public void split2()
-    {
-        primaryHand = splits.get(splitNum);
-        splitNum++;
-        Card c = hand.getHand().get(1);
-        
-        if(c.isAce() && c.getValue() == 1)
-        {
-            c.setAce(false);
-        }
-        primaryHand.addCard(c);
-    }
+    
     /**
      * Gets the value of the hand
      * @return The value of the hand
      */
     public int getHandValue()
     {
-        return primaryHand.getValue();
+        return hand.getValue();
     }
     
     /**
@@ -101,7 +64,7 @@ public class Person
      */
     public boolean isBust()
     {
-        return primaryHand.isBust();
+        return hand.isBust();
     }
     
     /**
@@ -110,17 +73,17 @@ public class Person
      */
     public void hit(Card c)
     {
-        primaryHand.addCard(c);
-        primaryHand.getValue();
+        hand.add(c);
+        hand.getValue();
     }
     
     /**
      * Adds a Card to the hand
      * @param c The card to add
      */
-    public void addCard(Card c)
+    public void add(Card c)
     {
-        primaryHand.addCard(c);
+        hand.add(c);
     }
     
     /**
@@ -129,7 +92,7 @@ public class Person
      */
     public int getNumCards()
     {
-        return primaryHand.numCards();
+        return hand.numCards();
     }
     
     /**
@@ -138,7 +101,7 @@ public class Person
      */
     public boolean hasBlackJack()
     {
-        return primaryHand.isBlackJack();
+        return hand.isBlackJack();
     }
     
     /**
@@ -147,7 +110,7 @@ public class Person
      */
     public boolean hasFiveCardCharlie()
     {
-        return primaryHand.isFiveCardCharlie();
+        return hand.isFiveCardCharlie();
     }
     
     /**
@@ -155,6 +118,6 @@ public class Person
      */
     public void clearHand()
     {
-        primaryHand.clearHand();
+        hand.clear();
     }
 }
