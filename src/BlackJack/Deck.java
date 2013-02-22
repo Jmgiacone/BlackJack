@@ -9,139 +9,30 @@ import java.util.Random;
  * 1/26/12
  * @author Jordan Giacone
  */
-public class Deck 
+public abstract class Deck
 {
-    private ArrayList<Card> deck, deckList;
-    private Random r;
-    
+    protected ArrayList<Card> deck;
+
+    protected abstract void setUpDeck();
     /**
      * A clone constructor for Deck. Copies the instance vars from d
      * @param d The Deck of which to clone
      */
-    public Deck(Deck d)
+    protected Deck(Deck d)
     {
-        deck = new ArrayList<>(52);
-        deckList = d.getDeck();
-        r = new Random();
-        
-        for(int i = 0; i < deckList.size(); i++)
-        {
-            deck.add(deckList.get(i));
-        }
+        deck = new ArrayList<>();
     }
     
     /**
      * A "no args" constructor. The default constructor for Deck. 
      * Initialized all values to default
      */
-    public Deck()
+    protected Deck()
     {
-        deck = new ArrayList<>(52);
-        r = new Random();
-        //Parameterized with 52 for readability sake
-        setdeck();
+        deck = new ArrayList<>();
+        setUpDeck();
     }
-    
-    /**
-     * A helper method containing the algorithm for initializing the cards
-     */
-    private void setdeck()
-    {
-        String rk = "";
-        int v = 0;
-        for(int i = 1; i <=13; i++)
-        {
-            if(i == 1)
-            {
-                rk = "Ace";
-                v = 11;
-            }
-            else if(i == 2)
-            {
-                rk = "Two";  
-                v = 2;
-            }
-            else if(i == 3)
-            {
-                rk = "Three";
-                v = 3;
-            }
-            else if(i == 4)
-            {
-                rk = "Four";
-                v = 4;
-            }
-            else if(i == 5)
-            {
-                rk = "Five";
-                v = 5;
-            }
-            else if(i == 6)
-            {
-                rk = "Six";
-                v = 6;
-            }
-            else if(i == 7)
-            {
-                rk = "Seven";
-                v = 7;
-            }
-            else if(i == 8)
-            {
-                rk = "Eight";
-                v = 8;
-            }
-            else if(i == 9)
-            {
-                rk = "Nine";
-                v = 9;
-            }
-            else if(i == 10)
-            {
-                rk = "Ten";
-                v = 10;
-            }
-            else if(i == 11)
-            {
-                rk = "Jack";
-                v = 10;
-            }
-            else if(i == 12)
-            {
-                rk = "Queen";
-                v = 10;
-            }
-            else if(i == 13)
-            {
-                rk = "King";
-                v = 10;
-            }
-        
-            for(int j = 1; j <= 4; j++)
-            {
-                String s = "";
 
-                if(j == 1)
-                {
-                    s = "Spades";
-                }
-                else if(j == 2)
-                {
-                    s = "Clubs";
-                }
-                else if(j == 3)
-                {
-                    s = "Hearts";
-                }
-                else if(j == 4)
-                {
-                    s = "Diamonds";
-                }
-                
-                deck.add(new Card(rk, s, v));
-            }
-        }
-    }
     
     /**
      * Gets the Card at the given index
@@ -157,7 +48,7 @@ public class Deck
      * Gets the top Card
      * @return The top Card of the Deck
      */
-    public Card getCard()
+    public Card getTopCard()
     {
         return deck.get(0);
     }
@@ -176,6 +67,7 @@ public class Deck
      */
     public void shuffle()
     {
+        Random r = new Random();
         List<Card> h1 = deck.subList(0, deck.size() / 2),
                  //split the deck into 2 halves
                  h2 = deck.subList(deck.size() / 2, 
@@ -215,18 +107,6 @@ public class Deck
              index = count;
          }
          deck = (ArrayList<Card>)temp;
-//        //Will probably write a better shuffle algorithm later
-//        int num;
-//        for(int i = deck.size(); i > 0; i--)
-//        {
-//            num = r.nextInt(i);
-//            shuffling.add(deck.get(num));
-//            deck.remove(num);
-//        }
-//        
-//        nullify(deck);
-//        Collections.copy(deck, shuffling);
-//        shuffling.clear();
     }
     
     /**
@@ -244,16 +124,13 @@ public class Deck
                 x.add(null);
             }
         }
-        else
-        {
-            //no nullification
-        }
     }
     
     /**
      * A basic toString
      * @return The status of all 52 cards
      */
+    @Override
     public String toString()
     {
         String s = "";
