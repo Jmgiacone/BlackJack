@@ -8,13 +8,14 @@ import javax.swing.ImageIcon;
  * 1/26/12
  * @author Jordan Giacone
  */
-public class Card 
+public class Card implements Comparable<Card>
 {
-    private String rank, suit, faceLocation, backLocation, tableLocation;
+    private final String RANK, SUIT, FACE_LOCATION, BACK_LOCATION = "images/back-blue-150-3.png",
+            TABLE_LOCATION = "images/tableColor.png";
+    private final ImageIcon FACE, BACKING = new ImageIcon(BACK_LOCATION), TABLE = new ImageIcon(TABLE_LOCATION);
     private int value;
     private boolean visible, isTable;
-    private ImageIcon face, backing, table;
-    
+
     /**
      * Constructs a card with given rank, suit, and value
      * @param newRank The Rank of the card (Queen, ten, Ace)
@@ -23,30 +24,16 @@ public class Card
      */
     public Card(String newRank, String newSuit, int newValue)
     {
-        rank = newRank;
-        suit = newSuit;
+        RANK = newRank;
+        SUIT = newSuit;
         value = newValue;
+        FACE_LOCATION = "images/" + RANK + SUIT + ".png";
+        FACE = new ImageIcon(FACE_LOCATION);
         visible = true;
         isTable = false;
-        faceLocation = "images/150x215/" + rank + suit + ".png";
-        backLocation = "images/150x215/back-blue-150-3.png";
-        tableLocation = "images/150x215/tableColor.png";
-        backing = new ImageIcon(backLocation);
-        table = new ImageIcon(tableLocation);
-        face = new ImageIcon(faceLocation);
         
     }
-    /**
-     * This is the default constructor that constructs default values for a 
-     * card, A joker of Narwhals with a value of -1
-     */
-    public Card()
-    {
-        rank = "Joker";
-        suit = "Narwhals";
-        value = -1;
-        visible = true;
-    }
+
     /**
      * This is a clone constructor that copies the instance variables of the
      * card object passed in
@@ -54,10 +41,12 @@ public class Card
      */
     public Card(Card c)
     {
-        rank = c.rank;
-        suit = c.suit;
+        RANK = c.RANK;
+        SUIT = c.SUIT;
         value = c.value;
         visible = c.visible;
+        FACE_LOCATION = c.FACE_LOCATION;
+        FACE = c.FACE;
     }
     /**
      * Flips the value of the ace. If the param is true, then it flips to one
@@ -68,12 +57,12 @@ public class Card
         value = isAce() && toOne ? 1 : 11;
     }
     /**
-     * Returns the rank of the card
+     * Returns the RANK of the card
      * @return A copy of the value of the cards Rank
      */
     public String getRank()
     {
-        return rank;
+        return RANK;
     }
     /**
      * Retruns the suit of the card
@@ -81,7 +70,7 @@ public class Card
      */
     public String getSuit()
     {
-        return suit;
+        return SUIT;
     }
     /**
      * Returns the value of the card
@@ -98,7 +87,7 @@ public class Card
     @Override
     public String toString()
     {
-        return rank + " of " + suit + "(" + value + ")" + "\n";
+        return RANK + " of " + SUIT + "(" + value + ")" + "\n";
     }
     /**
      * Returns true if it's an ace
@@ -106,11 +95,11 @@ public class Card
      */
     public boolean isAce()
     {
-        return rank.equalsIgnoreCase("Ace");
+        return RANK.equalsIgnoreCase("Ace");
     }
     
     /**
-     * Checks if the card is visble to the plaeyhr
+     * Checks if the card is visible to the player
      * @return True if visible, false if not
      */
     public boolean isVisible()
@@ -135,15 +124,15 @@ public class Card
     {
         if(isTable)
         {
-            return table;
+            return TABLE;
         }
         else if(visible)
         {
-            return face;
+            return FACE;
         }
         else
         {
-            return backing;
+            return BACKING;
         }
     }
     
@@ -155,5 +144,42 @@ public class Card
     public void setTable(boolean t)
     {
         isTable = t;
+    }
+
+    @Override
+    public int compareTo(Card c)
+    {
+        String s = c.RANK;
+        if(s.equalsIgnoreCase("Jack") || s.equalsIgnoreCase("Queen") || s.equalsIgnoreCase("King"))
+        {
+            switch(s)
+            {
+                case "Jack":
+                    switch(RANK)
+                    {
+                        case "Jack":
+                            return 0;
+                        default:
+                            return 1;
+                    }
+                case "Queen":
+                    switch (RANK)
+                    {
+                        case "Queen":
+                            return 0;
+                        default:
+                            return 1;
+                    }
+                case "King":
+                    switch (RANK)
+                    {
+                        case "King":
+                            return 0;
+                        default:
+                            return 1;
+                    }
+            }
+        }
+        return value - c.value;
     }
 }
