@@ -11,7 +11,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.Properties;
 import java.util.Scanner;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -38,8 +40,8 @@ public class BlackJackGUI extends JFrame
     }
     
     private JFrame choice, load, newGame;
-    private Dealer dealer;
-    private Player player;
+    private BlackJackDealer dealer;
+    private BlackJackPlayer player;
     private JPanel textFieldPanel, buttonPanel,middlePanel; 
     private JButton hit, stand, doubleDown, start, betButton, insurance, split, 
             nextRound, save;
@@ -258,7 +260,24 @@ public class BlackJackGUI extends JFrame
         initFields();
         initRadioButtons();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        dropDown = new JComboBox(new File("saves").listFiles());
+        try
+        {
+            dropDown = new JComboBox(new File("saves").listFiles());
+        }
+        catch(NullPointerException e)
+        {
+            JOptionPane.showMessageDialog(null, "Folder \"saves\" not found. Please make sure that it exists in the same "
+            + "directory as this .jar file");
+            System.exit(1);
+        }
+
+        if(!(new File("images").exists()))
+        {
+            JOptionPane.showMessageDialog(null, "Folder \"images\" not found. Please make sure that it exists in the same "
+            + "directory as this .jar file");
+            System.exit(1);
+        }
+
         asksInsurance = false;
         firstTime = true;
         splitting = false;
@@ -302,11 +321,11 @@ public class BlackJackGUI extends JFrame
      * @param aBet The bet to be checked
      * @return The legit bet or -1
      */
-    private double betCheck(String aBet)
+    private int betCheck(String aBet)
     {
         try
         {
-            double bet = Double.parseDouble(aBet);
+            int bet = Integer.parseInt(aBet);
 
             if(bet > 0)
             {
@@ -368,7 +387,7 @@ public class BlackJackGUI extends JFrame
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "That's not a real bet!");
+                JOptionPane.showMessageDialog(null, "That's not an acceptable bet!");
             }
             betField.setText("");
             firstBet = false;
@@ -457,6 +476,7 @@ public class BlackJackGUI extends JFrame
         span = new JRadioButton("Spanish");
         
     }
+
     /**
      * Handles the dealers hand. Dealer hits until hard 17, blackJack, or 
      * 5 Card Charlie
@@ -581,7 +601,7 @@ public class BlackJackGUI extends JFrame
             {
                 c.gridwidth = 5;
                 c.gridy = 1; 
-                middlePanel.add(new JLabel(new ImageIcon("images/150x215/tableAdvert_big.png")), c);
+                middlePanel.add(new JLabel(new ImageIcon("images/tableAdvert_big.png")), c);
                 middlePanel.setBackground(new Color(0,100,0));
                 add(middlePanel, BorderLayout.CENTER);
                 firstTime = false;
@@ -589,7 +609,7 @@ public class BlackJackGUI extends JFrame
             else//Reset to green table with middle picture before pressing Next Round
             {
                 middlePanel.removeAll();
-                middlePanel.add(new JLabel(new ImageIcon("images/150x215/tableAdvert_big.png")), c);
+                middlePanel.add(new JLabel(new ImageIcon("images/tableAdvert_big.png")), c);
                 middlePanel.validate();
                 setSize(getWidth(), getHeight() + 1);
                 setSize(getWidth(), getHeight());
@@ -604,7 +624,7 @@ public class BlackJackGUI extends JFrame
                 middlePanel.add(dealer.getCards(), c);
 
                 c.gridy = 1; 
-                middlePanel.add(new JLabel(new ImageIcon("images/150x215/tableAdvert_big.png")), c);
+                middlePanel.add(new JLabel(new ImageIcon("images/tableAdvert_big.png")), c);
                 c.gridy = 2;
                 middlePanel.add(player.getPrimaryCards(), c);
                 middlePanel.validate();
@@ -620,7 +640,7 @@ public class BlackJackGUI extends JFrame
                 middlePanel.add(dealer.getCards(), c);
 
                 c.gridy = 1; 
-                middlePanel.add(new JLabel(new ImageIcon("images/150x215/tableAdvert_big.png")), c);
+                middlePanel.add(new JLabel(new ImageIcon("images/tableAdvert_big.png")), c);
                 c.gridy = 2;
                 middlePanel.add(player.getPrimaryCards(), c);
                 middlePanel.validate();
@@ -694,7 +714,7 @@ public class BlackJackGUI extends JFrame
                 player.clearHand();
                 if(player.getBet() == 0)
                 {
-                    double bet = -1;
+                    int bet = -1;
 
                     while(player.getBet() == 0)
                     {
@@ -702,7 +722,7 @@ public class BlackJackGUI extends JFrame
                         {
                            try
                             {
-                                bet = Double.parseDouble(JOptionPane.
+                                bet = Integer.parseInt(JOptionPane.
                                         showInputDialog("Pon su dinero aqui por favor"));
                             }
                             catch(NumberFormatException ex)
@@ -727,7 +747,7 @@ public class BlackJackGUI extends JFrame
                         {
                             try
                             {
-                                bet = Double.parseDouble(JOptionPane.
+                                bet = Integer.parseInt(JOptionPane.
                                         showInputDialog("Please enter your second split bet"));
                             }
                             catch(NumberFormatException ex)
@@ -862,7 +882,7 @@ public class BlackJackGUI extends JFrame
     public void insurance()
     {
         asksInsurance = true;   
-        double bet = 0;
+        int bet = 0;
 
         while(bet <= 0)
         {
@@ -891,7 +911,7 @@ public class BlackJackGUI extends JFrame
      */
     public void bet()
     {
-        double maybeBet;
+        int maybeBet;
         if(betField.getText().equalsIgnoreCase(""))
         {
             if(firstBet)
@@ -1012,9 +1032,8 @@ public class BlackJackGUI extends JFrame
 
             if(player.hasBlackJack() && dealer.hasBlackJack())
             {
-                player.lose();
-                return "Both parties have a BlackJack, the dealer breaks all ties, "
-                        + "so you lose";
+                player.win();
+                return player.getName() + " has a BlackJack, they win!";
             }
             else if(player.hasBlackJack())
             {
@@ -1028,9 +1047,8 @@ public class BlackJackGUI extends JFrame
             }
             else if(player.hasFiveCardCharlie() && dealer.hasFiveCardCharlie())
             {
-                player.lose();
-                return "Both parties have a Five Card Charlie, the dealer breaks "
-                        + "all ties, so you lose";
+                player.win();
+                return player.getName() + " has a Five Card Charlie, they win!";
             }
             else if(player.hasFiveCardCharlie())
             {
@@ -1077,9 +1095,8 @@ public class BlackJackGUI extends JFrame
             else if(player.getHandValue() == dealer.getHandValue())
             {
                 //push
-                player.lose();
-                return "Both hands are equal, the dealer breaks all ties, "
-                        + "so you lose";
+                player.push();
+                return "Both hands are equal, the game is a push";
             }
         }
         return "Exception not coded for\n" + dealer.getHand() + 
@@ -1165,7 +1182,7 @@ public class BlackJackGUI extends JFrame
     {
         player.clearHand();
         
-        double aBet = 0;
+        int aBet = 0;
 
         while(aBet <= 0)
         {
@@ -1203,7 +1220,7 @@ public class BlackJackGUI extends JFrame
         
         choice.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         choice.add(background, BorderLayout.SOUTH);
-        choice.setSize(300, 100);
+        choice.setSize(300, 75);
         choice.setVisible(true);
     }
     
@@ -1213,6 +1230,7 @@ public class BlackJackGUI extends JFrame
     private void load()
     {
         JButton ok = new JButton("Ok!");
+        load.setTitle("Choose a Player!");
         ok.addActionListener(new LoadFileListener());
         
         load.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -1241,8 +1259,8 @@ public class BlackJackGUI extends JFrame
             vars[i] = scanner.nextLine();
         }
         
-        player = new Player(vars[0], Double.parseDouble(vars[1]));
-        dealer = new Dealer("Svetty", 5, player);
+        player = new BlackJackPlayer(vars[0], Integer.parseInt(vars[1]));
+        dealer = new BlackJackDealer("Svetty", 5, player);
         
         spanish = Boolean.parseBoolean(vars[2]);
         
@@ -1268,7 +1286,7 @@ public class BlackJackGUI extends JFrame
      */
     private void save() throws FileNotFoundException
     {
-        try (PrintWriter out = new PrintWriter(new File("saves/" + player.getName() + ".txt"))) 
+        try (PrintWriter out = new PrintWriter(new File("saves/" + player.getName() + ".txt")))
         {
             out.println(player.getName());
             out.println(player.getMoney());
@@ -1292,11 +1310,12 @@ public class BlackJackGUI extends JFrame
     private void newGame()
     {
         newGame.setLayout(new BorderLayout());
-        
+
+        newGame.setTitle("New Game!");
         JButton ok = new JButton("Ok");
         ok.addActionListener(new NewGameOkListener());
         JPanel choices = new JPanel();
-        JLabel newNameLabel = new JLabel("Your Name"), 
+        JLabel newNameLabel = new JLabel("Your Name: "),
         newMoneyLabel = new JLabel("How much money you have: $"),
         spanishLabel = new JLabel("Spanish or english?");
         ButtonGroup group = new ButtonGroup(); 
@@ -1314,7 +1333,8 @@ public class BlackJackGUI extends JFrame
         newGame.add(ok, BorderLayout.SOUTH);
         newGame.add(choices, BorderLayout.CENTER);
         newGame.setVisible(true);
-        newGame.setSize(300, 300);
+        newGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        newGame.setSize(300, 150);
     }
     
     /**
@@ -1331,7 +1351,7 @@ public class BlackJackGUI extends JFrame
      */
     private void setUpGameFrame()
     {
-        setTitle("Jordan Giacone BlackJack");
+        setTitle("Jordan Giacone's Game of BlackJack");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setSize(1200, 750);
@@ -1342,27 +1362,31 @@ public class BlackJackGUI extends JFrame
      */
     private void setNewPlayer()
     {
-        double cash = 0;//I just randomly hit the keyboard and produced this gem
+        int cash = 0;
+
         try
         {
-            cash = Double.parseDouble(moneyField.getText());
+            cash = Integer.parseInt(moneyField.getText().trim());
         }
         catch(NumberFormatException e)
         {
             JOptionPane.showMessageDialog(null, "Not a real number");
+            newGame.dispose();
             newGame();
         }
+
         if(cash <= 0)
         {
             JOptionPane.showMessageDialog(null, "Bet must be positive");
+            newGame.dispose();
             newGame();
         }
         else
         {
             String myName = nameField.getText();
             myName = myName.trim();
-            player = new Player(myName , cash);
-            dealer = new Dealer("Svetty", 5, player);
+            player = new BlackJackPlayer(myName , cash);
+            dealer = new BlackJackDealer("Svetty", 5, player);
             if(span.isSelected())
             {
                 spanish = true;
