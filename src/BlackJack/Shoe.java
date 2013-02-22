@@ -13,7 +13,6 @@ import java.util.Random;
 public class Shoe 
 {
     private ArrayList<Card> shoe;
-    private Random r;
     private int decks;
     
     /**
@@ -23,7 +22,6 @@ public class Shoe
     public Shoe(int numDecks)
     {
         shoe = new ArrayList<>();
-        r = new Random();
         
         decks = numDecks;
         initCards(decks);
@@ -34,7 +32,30 @@ public class Shoe
             shuffle();
         }
     }
-    
+
+    /**
+     * Constructs a Shoe with the default amount of decks (3)
+     */
+    public Shoe()
+    {
+        shoe = new ArrayList<>();
+
+        for(int i = 0; i < 3; i++)
+        {
+            addDeckCards(new BlackJackDeck().getDeck());
+        }
+    }
+
+    /**
+     * A clone constructor
+     * @param s The shoe to be cloned
+     */
+    public Shoe(Shoe s)
+    {
+        shoe = new ArrayList<>(s.shoe.size());
+
+        Collections.copy(shoe, s.shoe);
+    }
     /**
      * Sets up all the Cards in the Shoe with the given amount of decks
      * @param decks The amount of decks to include
@@ -43,43 +64,19 @@ public class Shoe
     {
         for(int i = 0; i < decks; i++)
         {
-            addDeckCards(new Deck().getDeck());
+            addDeckCards(new BlackJackDeck().getDeck());
         }
     }
-    /**
-     * Constructs a Shoe with the default amount of decks (3)
-     */
-    public Shoe()
-    {
-        shoe = new ArrayList<>();
-        r = new Random();
-        
-        for(int i = 0; i < 3; i++)
-        {
-            addDeckCards(new Deck().getDeck());
-        }
-    }
-    
-    /**
-     * A clone constructor
-     * @param s The shoe to be cloned
-     */
-    public Shoe(Shoe s)
-    {
-        shoe = new ArrayList<>(s.shoe.size());
-        r = new Random();
-        Collections.copy(shoe, s.shoe);
-    }
-    
+
     /**
      * Adds decks to the shoe
      * @param d The deck to be added
      */
     private void addDeckCards(ArrayList<Card> d)
     {
-        for(int i = 0; i < d.size(); i++)
+        for(Card c : d)
         {
-            shoe.add(d.get(i));
+            shoe.add(c);
         }
     }
     
@@ -110,9 +107,11 @@ public class Shoe
                  //split the shoe into 2 halves
                  h2 = shoe.subList(shoe.size() / 2, 
                  shoe.size()), temp = new ArrayList<>();
+
+         Random r = new Random();
          
          int num = 0, index = 0;
-         
+
          for(int count = 0; count < h1.size();)
          {
              if(count > h1.size() - 4)
@@ -125,13 +124,13 @@ public class Shoe
                  //the two halves
                 num = r.nextInt(3) + 1;
              }
-             
+
              index += num - 1;
              for(int j = num; j > 0; j--)
              {
                  temp.add(h1.get(index));
                  temp.add(h2.get(index));
-                 
+
                  if(j == 1)
                  {
                      //Do nothing
