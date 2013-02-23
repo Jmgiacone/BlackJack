@@ -24,3 +24,6 @@ nb-configuration.xml
 *.mf
 *.xlsx
 *.properties
+*.iml
+*.xml
+*.idea
